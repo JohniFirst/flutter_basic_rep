@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/screens/screen_test.dart';
 import 'package:flutter_application_1/student.dart';
+
+import 'section.dart';
 
 void main() {
   runApp(const MyApp());
@@ -74,6 +77,14 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(
+                  context,
+                ).push(MaterialPageRoute(builder: (context) => ScreenTest()));
+              },
+              child: Text('导航到screenTest'),
+            ),
             const Text('You have pushed the button this many times:'),
             Text(
               '$_counter',
@@ -84,6 +95,13 @@ class _MyHomePageState extends State<MyHomePage> {
               style: TextStyle(color: Colors.red, fontSize: 40),
             ),
             showStudentsList(),
+            Row(
+              children: [
+                Expanded(child: FirstSection()),
+                Expanded(child: FirstSection()),
+                Expanded(child: FirstSection()),
+              ],
+            ),
           ],
         ),
       ),
