@@ -98,8 +98,8 @@ class _MyHomePageState extends State<MyHomePage> {
             Row(
               children: [
                 Expanded(child: FirstSection()),
-                Expanded(child: FirstSection()),
-                Expanded(child: FirstSection()),
+                // Expanded(child: FirstSection()),
+                // Expanded(child: FirstSection()),
               ],
             ),
           ],
