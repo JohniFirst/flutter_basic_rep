@@ -1,16 +1,6 @@
-# flutter_application_1
+## 项目介绍
+基于flutter的一个公共组件项目，已经设置好了相关环境，项目可以直接克隆使用
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 待添加的功能
+1、国际化
+2、主题切换功能
