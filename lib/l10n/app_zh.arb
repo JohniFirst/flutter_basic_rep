@@ -1,0 +1,25 @@
+{
+  "appTitle": "Flutter示例",
+  "homeTitle": "Flutter示例首页",
+  "navToScreenTest": "导航到 ScreenTest",
+  "counterHint": "你已经点按按钮的次数：",
+  "customLine": "我自定义新增的一行",
+  "incrementTooltip": "增加",
+  "back": "返回",
+  "screenTestCounter": "你已经敲击了这个木鱼{count}次",
+  "firstSection": "第一段",
+  "secondSection": "第二段",
+  "studentNameAge": "姓名: {name}, 年龄: {age}",
+  "@screenTestCounter": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "@studentNameAge": {
+    "placeholders": {
+      "name": {"type": "String"},
+      "age": {"type": "int"}
+    }
+  }
+}
+

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'app_localizations.dart';
 import 'package:flutter_application_1/screens/screen_test.dart';
 import 'package:flutter_application_1/student.dart';
 
@@ -14,11 +16,21 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      onGenerateTitle: (context) => AppLocalizations.of(context).appTitle,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.red),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('en'),
+        Locale('zh'),
+      ],
+      home: const MyHomePage(title: ''),
     );
   }
 }
@@ -61,17 +73,19 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget showStudentsList() {
     List<Widget> studentWidgets = [];
     for (var student in studentsList) {
-      studentWidgets.add(Text('姓名: ${student.name}, 年龄: ${student.age}'));
+      studentWidgets.add(Text(AppLocalizations.of(context).studentNameAge(student.name, student.age)));
     }
     return Column(children: studentWidgets);
   }
 
   @override
   Widget build(BuildContext context) {
+    // Recompute title from localization to keep it dynamic on locale change
+    final localizedTitle = AppLocalizations.of(context).homeTitle;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
+        title: Text(localizedTitle),
       ),
       body: Center(
         child: Column(
@@ -83,15 +97,15 @@ class _MyHomePageState extends State<MyHomePage> {
                   context,
                 ).push(MaterialPageRoute(builder: (context) => ScreenTest()));
               },
-              child: Text('导航到screenTest'),
+              child: Text(AppLocalizations.of(context).navToScreenTest),
             ),
-            const Text('You have pushed the button this many times:'),
+            Text(AppLocalizations.of(context).counterHint),
             Text(
               '$_counter',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
             Text(
-              'I custom add a line',
+              AppLocalizations.of(context).customLine,
               style: TextStyle(color: Colors.red, fontSize: 40),
             ),
             showStudentsList(),
@@ -107,7 +121,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
-        tooltip: 'Increment',
+        tooltip: AppLocalizations.of(context).incrementTooltip,
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );

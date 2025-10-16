@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'app_localizations.dart';
 
 class FirstSection extends StatelessWidget {
   const FirstSection({super.key});
@@ -21,11 +22,11 @@ class FirstSection extends StatelessWidget {
       child: Column(
         children: [
           Text(
-            'First Section',
+            AppLocalizations.of(context).firstSection,
             style: TextStyle(color: Colors.white, fontSize: 40),
           ),
           Text(
-            'Second Section',
+            AppLocalizations.of(context).secondSection,
             style: TextStyle(fontWeight: FontWeight.w900, fontSize: 50),
           ),
         ],

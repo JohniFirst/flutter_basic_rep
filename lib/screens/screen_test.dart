@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../app_localizations.dart';
 
 class ScreenTest extends StatefulWidget {
   const ScreenTest({super.key});
@@ -20,10 +21,17 @@ class _ScreenTestState extends State<ScreenTest> {
           onPressed: () {
             Navigator.of(context).pop();
           },
-          child: Icon(Icons.chevron_left_rounded),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(Icons.chevron_left_rounded),
+              SizedBox(width: 4),
+              Text(AppLocalizations.of(context).back),
+            ],
+          ),
         ),
         Text(
-          '你已经敲击了这个木鱼$otherNumber次',
+          AppLocalizations.of(context).screenTestCounter(otherNumber),
           style: TextStyle(
             fontSize: 100,
             color: Colors.red,

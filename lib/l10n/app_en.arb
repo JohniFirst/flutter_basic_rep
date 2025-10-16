@@ -1,0 +1,25 @@
+{
+  "appTitle": "Flutter Demo",
+  "homeTitle": "Flutter Demo Home Page",
+  "navToScreenTest": "Navigate to Screen Test",
+  "counterHint": "You have pushed the button this many times:",
+  "customLine": "I custom add a line",
+  "incrementTooltip": "Increment",
+  "back": "Back",
+  "screenTestCounter": "You tapped the wooden fish {count} times",
+  "firstSection": "First Section",
+  "secondSection": "Second Section",
+  "studentNameAge": "Name: {name}, Age: {age}",
+  "@screenTestCounter": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "@studentNameAge": {
+    "placeholders": {
+      "name": {"type": "String"},
+      "age": {"type": "int"}
+    }
+  }
+}
+
