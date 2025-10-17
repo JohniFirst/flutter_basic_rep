@@ -13,40 +13,42 @@ class _ScreenTestState extends State<ScreenTest> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        ElevatedButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(Icons.chevron_left_rounded),
-              SizedBox(width: 4),
-              Text(AppLocalizations.of(context).back),
-            ],
+    return Scaffold(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ElevatedButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(Icons.chevron_left_rounded),
+                SizedBox(width: 4),
+                Text(AppLocalizations.of(context).back),
+              ],
+            ),
           ),
-        ),
-        Text(
-          AppLocalizations.of(context).screenTestCounter(otherNumber),
-          style: TextStyle(
-            fontSize: 100,
-            color: Colors.red,
-            decoration: TextDecoration.none,
+          Text(
+            AppLocalizations.of(context).screenTestCounter(otherNumber),
+            style: TextStyle(
+              fontSize: 60,
+              color: Colors.red,
+              decoration: TextDecoration.none,
+            ),
           ),
-        ),
-        FloatingActionButton(
-          onPressed: () {
-            setState(() {
-              otherNumber++;
-            });
-          },
-          child: Icon(Icons.add),
-        ),
-      ],
+          FloatingActionButton(
+            onPressed: () {
+              setState(() {
+                otherNumber++;
+              });
+            },
+            child: Icon(Icons.add),
+          ),
+        ],
+      ),
     );
   }
 }
