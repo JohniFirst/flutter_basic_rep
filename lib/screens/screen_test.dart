@@ -28,12 +28,12 @@ class _ScreenTestState extends State<ScreenTest> {
         );
         
         if (launched) {
-          print('成功启动电话应用，号码：$phoneNumber');
+          // 成功启动电话应用
         } else {
-          print('启动电话应用失败');
+          // 启动电话应用失败
         }
       } else {
-        print('无法打开电话应用，请检查权限设置');
+        // 无法打开电话应用，请检查权限设置
         // 显示用户友好的错误信息
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -45,7 +45,7 @@ class _ScreenTestState extends State<ScreenTest> {
         }
       }
     } catch (e) {
-      print('打开电话应用失败：$e');
+      // 打开电话应用失败
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
