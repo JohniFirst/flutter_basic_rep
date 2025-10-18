@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../app_localizations.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ScreenTest extends StatefulWidget {
   const ScreenTest({super.key});
@@ -10,6 +11,51 @@ class ScreenTest extends StatefulWidget {
 
 class _ScreenTestState extends State<ScreenTest> {
   int otherNumber = 0;
+
+  // 打开电话应用并自动填充号码
+  void launchPhoneApp(String phoneNumber) async {
+    // 拼接电话协议（tel: + 电话号码）
+    final Uri url = Uri.parse('tel:$phoneNumber');
+
+    try {
+      // 检查是否可以打开该链接
+      if (await canLaunchUrl(url)) {
+        // 启动电话应用
+        bool launched = await launchUrl(
+          url,
+          // 配置启动模式
+          mode: LaunchMode.externalApplication,
+        );
+        
+        if (launched) {
+          print('成功启动电话应用，号码：$phoneNumber');
+        } else {
+          print('启动电话应用失败');
+        }
+      } else {
+        print('无法打开电话应用，请检查权限设置');
+        // 显示用户友好的错误信息
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('无法打开电话应用，请检查权限设置'),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+      }
+    } catch (e) {
+      print('打开电话应用失败：$e');
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('打开电话应用失败：$e'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +74,16 @@ class _ScreenTestState extends State<ScreenTest> {
                 Icon(Icons.chevron_left_rounded),
                 SizedBox(width: 4),
                 Text(AppLocalizations.of(context).back),
+              ],
+            ),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              launchPhoneApp('10086');
+            },
+            child: Row(
+              children: [
+                Text('call 10086')
               ],
             ),
           ),

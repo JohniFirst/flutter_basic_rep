@@ -46,3 +46,8 @@
 -dontwarn kotlin.**
 -dontwarn javax.annotation.**
 -dontwarn javax.inject.**
+
+# 修复R8编译错误 - 添加缺失的类警告抑制
+-dontwarn javax.lang.model.element.Modifier
+-dontwarn javax.lang.model.**
+-dontwarn com.google.errorprone.annotations.**
