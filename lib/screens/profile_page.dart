@@ -67,7 +67,8 @@ class _ProfilePageState extends State<ProfilePage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            _currentUsername ?? AppLocalizations.of(context).unknownUser,
+                            _currentUsername ??
+                                AppLocalizations.of(context).unknownUser,
                             style: const TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
@@ -75,7 +76,9 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                           const SizedBox(height: 4),
                           Text(
-                            AppLocalizations.of(context).userId(_currentUsername ?? 'N/A'),
+                            AppLocalizations.of(
+                              context,
+                            ).userId(_currentUsername ?? 'N/A'),
                             style: TextStyle(color: Colors.grey[600]),
                           ),
                         ],
@@ -103,9 +106,13 @@ class _ProfilePageState extends State<ProfilePage> {
                     title: Text(AppLocalizations.of(context).accountInfo),
                     trailing: const Icon(Icons.chevron_right),
                     onTap: () {
-                      ScaffoldMessenger.of(
-                        context,
-                      ).showSnackBar(SnackBar(content: Text(AppLocalizations.of(context).accountInfo)));
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            AppLocalizations.of(context).accountInfo,
+                          ),
+                        ),
+                      );
                     },
                   ),
                   const Divider(height: 1),
@@ -114,20 +121,30 @@ class _ProfilePageState extends State<ProfilePage> {
                     title: Text(AppLocalizations.of(context).securitySettings),
                     trailing: const Icon(Icons.chevron_right),
                     onTap: () {
-                      ScaffoldMessenger.of(
-                        context,
-                      ).showSnackBar(SnackBar(content: Text(AppLocalizations.of(context).securitySettings)));
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            AppLocalizations.of(context).securitySettings,
+                          ),
+                        ),
+                      );
                     },
                   ),
                   const Divider(height: 1),
                   ListTile(
                     leading: const Icon(Icons.notifications),
-                    title: Text(AppLocalizations.of(context).notificationSettings),
+                    title: Text(
+                      AppLocalizations.of(context).notificationSettings,
+                    ),
                     trailing: const Icon(Icons.chevron_right),
                     onTap: () {
-                      ScaffoldMessenger.of(
-                        context,
-                      ).showSnackBar(SnackBar(content: Text(AppLocalizations.of(context).notificationSettings)));
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            AppLocalizations.of(context).notificationSettings,
+                          ),
+                        ),
+                      );
                     },
                   ),
                   const Divider(height: 1),
@@ -136,9 +153,13 @@ class _ProfilePageState extends State<ProfilePage> {
                     title: Text(AppLocalizations.of(context).helpFeedback),
                     trailing: const Icon(Icons.chevron_right),
                     onTap: () {
-                      ScaffoldMessenger.of(
-                        context,
-                      ).showSnackBar(SnackBar(content: Text(AppLocalizations.of(context).helpFeedback)));
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            AppLocalizations.of(context).helpFeedback,
+                          ),
+                        ),
+                      );
                     },
                   ),
                 ],
@@ -151,12 +172,12 @@ class _ProfilePageState extends State<ProfilePage> {
             if (_isRememberUser)
               Card(
                 color: Colors.green[50],
-                child: const Padding(
-                  padding: EdgeInsets.all(16.0),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
                   child: Row(
                     children: [
-                      Icon(Icons.check_circle, color: Colors.green),
-                      SizedBox(width: 8),
+                      const Icon(Icons.check_circle, color: Colors.green),
+                      const SizedBox(width: 8),
                       Text(AppLocalizations.of(context).rememberedUser),
                     ],
                   ),

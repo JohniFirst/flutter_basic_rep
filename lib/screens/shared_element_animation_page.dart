@@ -134,7 +134,7 @@ class SharedElementAnimationPage extends StatelessWidget {
                 child: Container(
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
-                    color: Colors.green.withOpacity(0.1),
+                    color: Colors.green.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(8),
                     border: Border.all(color: Colors.green, width: 2),
                   ),
@@ -183,7 +183,7 @@ class SharedElementAnimationPage extends StatelessWidget {
                   child: Container(
                     padding: const EdgeInsets.all(20),
                     decoration: BoxDecoration(
-                      color: Colors.orange.withOpacity(0.1),
+                      color: Colors.orange.withValues(alpha: 0.1),
                       shape: BoxShape.circle,
                       border: Border.all(color: Colors.orange, width: 3),
                     ),
@@ -361,7 +361,7 @@ class DetailPage extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.all(24),
             decoration: BoxDecoration(
-              color: Colors.green.withOpacity(0.1),
+              color: Colors.green.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(16),
               border: Border.all(color: Colors.green, width: 3),
             ),
@@ -380,7 +380,7 @@ class DetailPage extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.all(30),
             decoration: BoxDecoration(
-              color: Colors.orange.withOpacity(0.1),
+              color: Colors.orange.withValues(alpha: 0.1),
               shape: BoxShape.circle,
               border: Border.all(color: Colors.orange, width: 4),
             ),
