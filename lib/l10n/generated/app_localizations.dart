@@ -163,6 +163,342 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Name: {name}, Age: {age}'**
   String studentNameAge(String name, int age);
+
+  /// No description provided for @welcomeLogin.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome Login'**
+  String get welcomeLogin;
+
+  /// No description provided for @username.
+  ///
+  /// In en, this message translates to:
+  /// **'Username'**
+  String get username;
+
+  /// No description provided for @password.
+  ///
+  /// In en, this message translates to:
+  /// **'Password'**
+  String get password;
+
+  /// No description provided for @rememberUser.
+  ///
+  /// In en, this message translates to:
+  /// **'Remember Current User'**
+  String get rememberUser;
+
+  /// No description provided for @login.
+  ///
+  /// In en, this message translates to:
+  /// **'Login'**
+  String get login;
+
+  /// No description provided for @loginHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Hint: Enter any username and password to login'**
+  String get loginHint;
+
+  /// No description provided for @loginError.
+  ///
+  /// In en, this message translates to:
+  /// **'Username or password is incorrect'**
+  String get loginError;
+
+  /// No description provided for @profile.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get profile;
+
+  /// No description provided for @unknownUser.
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown User'**
+  String get unknownUser;
+
+  /// No description provided for @userId.
+  ///
+  /// In en, this message translates to:
+  /// **'User ID: {username}'**
+  String userId(String username);
+
+  /// No description provided for @settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get settings;
+
+  /// No description provided for @accountInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Account Info'**
+  String get accountInfo;
+
+  /// No description provided for @securitySettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Security Settings'**
+  String get securitySettings;
+
+  /// No description provided for @notificationSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Notification Settings'**
+  String get notificationSettings;
+
+  /// No description provided for @helpFeedback.
+  ///
+  /// In en, this message translates to:
+  /// **'Help & Feedback'**
+  String get helpFeedback;
+
+  /// No description provided for @rememberedUser.
+  ///
+  /// In en, this message translates to:
+  /// **'Current user remembered'**
+  String get rememberedUser;
+
+  /// No description provided for @logout.
+  ///
+  /// In en, this message translates to:
+  /// **'Logout'**
+  String get logout;
+
+  /// No description provided for @notifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications'**
+  String get notifications;
+
+  /// No description provided for @enableNotifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable Notifications'**
+  String get enableNotifications;
+
+  /// No description provided for @receiveNotifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Receive app notifications'**
+  String get receiveNotifications;
+
+  /// No description provided for @appearance.
+  ///
+  /// In en, this message translates to:
+  /// **'Appearance'**
+  String get appearance;
+
+  /// No description provided for @darkMode.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark Mode'**
+  String get darkMode;
+
+  /// No description provided for @switchToDarkTheme.
+  ///
+  /// In en, this message translates to:
+  /// **'Switch to dark theme'**
+  String get switchToDarkTheme;
+
+  /// No description provided for @fontSize.
+  ///
+  /// In en, this message translates to:
+  /// **'Font Size'**
+  String get fontSize;
+
+  /// No description provided for @application.
+  ///
+  /// In en, this message translates to:
+  /// **'Application'**
+  String get application;
+
+  /// No description provided for @aboutApp.
+  ///
+  /// In en, this message translates to:
+  /// **'About App'**
+  String get aboutApp;
+
+  /// No description provided for @checkUpdates.
+  ///
+  /// In en, this message translates to:
+  /// **'Check Updates'**
+  String get checkUpdates;
+
+  /// No description provided for @latestVersion.
+  ///
+  /// In en, this message translates to:
+  /// **'Latest version'**
+  String get latestVersion;
+
+  /// No description provided for @clearCache.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear Cache'**
+  String get clearCache;
+
+  /// No description provided for @other.
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get other;
+
+  /// No description provided for @privacyPolicy.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy Policy'**
+  String get privacyPolicy;
+
+  /// No description provided for @userAgreement.
+  ///
+  /// In en, this message translates to:
+  /// **'User Agreement'**
+  String get userAgreement;
+
+  /// No description provided for @clearCacheConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to clear app cache?'**
+  String get clearCacheConfirm;
+
+  /// No description provided for @cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
+  /// No description provided for @confirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm'**
+  String get confirm;
+
+  /// No description provided for @cacheCleared.
+  ///
+  /// In en, this message translates to:
+  /// **'Cache cleared'**
+  String get cacheCleared;
+
+  /// No description provided for @appName.
+  ///
+  /// In en, this message translates to:
+  /// **'Flutter App'**
+  String get appName;
+
+  /// No description provided for @appVersion.
+  ///
+  /// In en, this message translates to:
+  /// **'1.0.0'**
+  String get appVersion;
+
+  /// No description provided for @appDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'This is a sample app developed with Flutter.'**
+  String get appDescription;
+
+  /// No description provided for @responsiveDesign.
+  ///
+  /// In en, this message translates to:
+  /// **'Responsive Design'**
+  String get responsiveDesign;
+
+  /// No description provided for @responsiveDesignDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'This page demonstrates responsive design for different screen sizes'**
+  String get responsiveDesignDescription;
+
+  /// No description provided for @smallScreen.
+  ///
+  /// In en, this message translates to:
+  /// **'Small Screen'**
+  String get smallScreen;
+
+  /// No description provided for @mediumScreen.
+  ///
+  /// In en, this message translates to:
+  /// **'Medium Screen'**
+  String get mediumScreen;
+
+  /// No description provided for @largeScreen.
+  ///
+  /// In en, this message translates to:
+  /// **'Large Screen'**
+  String get largeScreen;
+
+  /// No description provided for @screenSize.
+  ///
+  /// In en, this message translates to:
+  /// **'Screen Size: {width} x {height}'**
+  String screenSize(int width, int height);
+
+  /// No description provided for @deviceType.
+  ///
+  /// In en, this message translates to:
+  /// **'Device Type: {type}'**
+  String deviceType(String type);
+
+  /// No description provided for @sharedElementAnimation.
+  ///
+  /// In en, this message translates to:
+  /// **'Shared Element Animation'**
+  String get sharedElementAnimation;
+
+  /// No description provided for @sharedElementDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'This page demonstrates shared element animations'**
+  String get sharedElementDescription;
+
+  /// No description provided for @tapToAnimate.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to animate'**
+  String get tapToAnimate;
+
+  /// No description provided for @sharedElementDemo.
+  ///
+  /// In en, this message translates to:
+  /// **'Shared Element Demo'**
+  String get sharedElementDemo;
+
+  /// No description provided for @animationPage.
+  ///
+  /// In en, this message translates to:
+  /// **'Animation Page'**
+  String get animationPage;
+
+  /// No description provided for @returnToHome.
+  ///
+  /// In en, this message translates to:
+  /// **'Return to Home'**
+  String get returnToHome;
+
+  /// No description provided for @language.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get language;
+
+  /// No description provided for @selectLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Language'**
+  String get selectLanguage;
+
+  /// No description provided for @english.
+  ///
+  /// In en, this message translates to:
+  /// **'English'**
+  String get english;
+
+  /// No description provided for @chinese.
+  ///
+  /// In en, this message translates to:
+  /// **'Chinese'**
+  String get chinese;
 }
 
 class _AppLocalizationsDelegate

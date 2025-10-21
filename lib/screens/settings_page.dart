@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import '../app_localizations.dart';
+import '../services/theme_service.dart';
+import 'package:provider/provider.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -9,14 +12,14 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   bool _notificationsEnabled = true;
-  bool _darkModeEnabled = false;
-  double _fontSize = 16.0;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Consumer<ThemeService>(
+      builder: (context, themeService, child) {
+        return Scaffold(
       appBar: AppBar(
-        title: const Text('设置'),
+        title: Text(AppLocalizations.of(context).settings),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: ListView(
@@ -27,16 +30,16 @@ class _SettingsPageState extends State<SettingsPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Padding(
-                  padding: EdgeInsets.all(16.0),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
                   child: Text(
-                    '通知',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    AppLocalizations.of(context).notifications,
+                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ),
                 SwitchListTile(
-                  title: const Text('启用通知'),
-                  subtitle: const Text('接收应用通知'),
+                  title: Text(AppLocalizations.of(context).enableNotifications),
+                  subtitle: Text(AppLocalizations.of(context).receiveNotifications),
                   value: _notificationsEnabled,
                   onChanged: (value) {
                     setState(() {
@@ -55,40 +58,46 @@ class _SettingsPageState extends State<SettingsPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Padding(
-                  padding: EdgeInsets.all(16.0),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
                   child: Text(
-                    '外观',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    AppLocalizations.of(context).appearance,
+                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ),
                 SwitchListTile(
-                  title: const Text('深色模式'),
-                  subtitle: const Text('切换到深色主题'),
-                  value: _darkModeEnabled,
+                  title: Text(AppLocalizations.of(context).darkMode),
+                  subtitle: Text(AppLocalizations.of(context).switchToDarkTheme),
+                  value: themeService.isDarkMode,
                   onChanged: (value) {
-                    setState(() {
-                      _darkModeEnabled = value;
-                    });
+                    themeService.toggleDarkMode();
                   },
                 ),
                 ListTile(
-                  title: const Text('字体大小'),
-                  subtitle: Text('${_fontSize.toInt()}px'),
+                  title: Text(AppLocalizations.of(context).fontSize),
+                  subtitle: Text('${themeService.fontSize.toInt()}px'),
                   trailing: SizedBox(
                     width: 200,
                     child: Slider(
-                      value: _fontSize,
+                      value: themeService.fontSize,
                       min: 12.0,
                       max: 24.0,
                       divisions: 12,
                       onChanged: (value) {
-                        setState(() {
-                          _fontSize = value;
-                        });
+                        themeService.setFontSize(value);
                       },
                     ),
                   ),
+                ),
+                ListTile(
+                  title: Text(AppLocalizations.of(context).language),
+                  subtitle: Text(themeService.language == 'zh' 
+                      ? AppLocalizations.of(context).chinese 
+                      : AppLocalizations.of(context).english),
+                  trailing: const Icon(Icons.chevron_right),
+                  onTap: () {
+                    _showLanguageDialog(themeService);
+                  },
                 ),
               ],
             ),
@@ -101,16 +110,16 @@ class _SettingsPageState extends State<SettingsPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Padding(
-                  padding: EdgeInsets.all(16.0),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
                   child: Text(
-                    '应用',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    AppLocalizations.of(context).application,
+                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ),
                 ListTile(
                   leading: const Icon(Icons.info),
-                  title: const Text('关于应用'),
+                  title: Text(AppLocalizations.of(context).aboutApp),
                   trailing: const Icon(Icons.chevron_right),
                   onTap: () {
                     _showAboutDialog();
@@ -119,18 +128,18 @@ class _SettingsPageState extends State<SettingsPage> {
                 const Divider(height: 1),
                 ListTile(
                   leading: const Icon(Icons.update),
-                  title: const Text('检查更新'),
+                  title: Text(AppLocalizations.of(context).checkUpdates),
                   trailing: const Icon(Icons.chevron_right),
                   onTap: () {
                     ScaffoldMessenger.of(
                       context,
-                    ).showSnackBar(const SnackBar(content: Text('已是最新版本')));
+                    ).showSnackBar(SnackBar(content: Text(AppLocalizations.of(context).latestVersion)));
                   },
                 ),
                 const Divider(height: 1),
                 ListTile(
                   leading: const Icon(Icons.clear_all),
-                  title: const Text('清除缓存'),
+                  title: Text(AppLocalizations.of(context).clearCache),
                   trailing: const Icon(Icons.chevron_right),
                   onTap: () {
                     _showClearCacheDialog();
@@ -147,32 +156,32 @@ class _SettingsPageState extends State<SettingsPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Padding(
-                  padding: EdgeInsets.all(16.0),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
                   child: Text(
-                    '其他',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    AppLocalizations.of(context).other,
+                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ),
                 ListTile(
                   leading: const Icon(Icons.privacy_tip),
-                  title: const Text('隐私政策'),
+                  title: Text(AppLocalizations.of(context).privacyPolicy),
                   trailing: const Icon(Icons.chevron_right),
                   onTap: () {
                     ScaffoldMessenger.of(
                       context,
-                    ).showSnackBar(const SnackBar(content: Text('隐私政策')));
+                    ).showSnackBar(SnackBar(content: Text(AppLocalizations.of(context).privacyPolicy)));
                   },
                 ),
                 const Divider(height: 1),
                 ListTile(
                   leading: const Icon(Icons.description),
-                  title: const Text('用户协议'),
+                  title: Text(AppLocalizations.of(context).userAgreement),
                   trailing: const Icon(Icons.chevron_right),
                   onTap: () {
                     ScaffoldMessenger.of(
                       context,
-                    ).showSnackBar(const SnackBar(content: Text('用户协议')));
+                    ).showSnackBar(SnackBar(content: Text(AppLocalizations.of(context).userAgreement)));
                   },
                 ),
               ],
@@ -181,15 +190,17 @@ class _SettingsPageState extends State<SettingsPage> {
         ],
       ),
     );
+      },
+    );
   }
 
   void _showAboutDialog() {
     showAboutDialog(
       context: context,
-      applicationName: 'Flutter应用',
-      applicationVersion: '1.0.0',
+      applicationName: AppLocalizations.of(context).appName,
+      applicationVersion: AppLocalizations.of(context).appVersion,
       applicationIcon: const Icon(Icons.flutter_dash),
-      children: [const Text('这是一个使用Flutter开发的示例应用。')],
+      children: [Text(AppLocalizations.of(context).appDescription)],
     );
   }
 
@@ -197,21 +208,67 @@ class _SettingsPageState extends State<SettingsPage> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('清除缓存'),
-        content: const Text('确定要清除应用缓存吗？'),
+        title: Text(AppLocalizations.of(context).clearCache),
+        content: Text(AppLocalizations.of(context).clearCacheConfirm),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: const Text('取消'),
+            child: Text(AppLocalizations.of(context).cancel),
           ),
           TextButton(
             onPressed: () {
               Navigator.of(context).pop();
               ScaffoldMessenger.of(
                 context,
-              ).showSnackBar(const SnackBar(content: Text('缓存已清除')));
+              ).showSnackBar(SnackBar(content: Text(AppLocalizations.of(context).cacheCleared)));
             },
-            child: const Text('确定'),
+            child: Text(AppLocalizations.of(context).confirm),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showLanguageDialog(ThemeService themeService) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(AppLocalizations.of(context).selectLanguage),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+              title: Text(AppLocalizations.of(context).chinese),
+              leading: Radio<String>(
+                value: 'zh',
+                groupValue: themeService.language,
+                onChanged: (value) {
+                  if (value != null) {
+                    themeService.setLanguage(value);
+                    Navigator.of(context).pop();
+                  }
+                },
+              ),
+            ),
+            ListTile(
+              title: Text(AppLocalizations.of(context).english),
+              leading: Radio<String>(
+                value: 'en',
+                groupValue: themeService.language,
+                onChanged: (value) {
+                  if (value != null) {
+                    themeService.setLanguage(value);
+                    Navigator.of(context).pop();
+                  }
+                },
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text(AppLocalizations.of(context).cancel),
           ),
         ],
       ),

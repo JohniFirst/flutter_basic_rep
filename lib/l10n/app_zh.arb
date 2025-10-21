@@ -10,6 +10,62 @@
   "firstSection": "第一段",
   "secondSection": "第二段",
   "studentNameAge": "姓名: {name}, 年龄: {age}",
+  "welcomeLogin": "欢迎登录",
+  "username": "用户名",
+  "password": "密码",
+  "rememberUser": "记住当前用户",
+  "login": "登录",
+  "loginHint": "提示：输入任意用户名和密码即可登录",
+  "loginError": "用户名或密码错误",
+  "profile": "个人资料",
+  "unknownUser": "未知用户",
+  "userId": "用户ID: {username}",
+  "settings": "设置",
+  "accountInfo": "账户信息",
+  "securitySettings": "安全设置",
+  "notificationSettings": "通知设置",
+  "helpFeedback": "帮助与反馈",
+  "rememberedUser": "已记住当前用户",
+  "logout": "退出登录",
+  "notifications": "通知",
+  "enableNotifications": "启用通知",
+  "receiveNotifications": "接收应用通知",
+  "appearance": "外观",
+  "darkMode": "深色模式",
+  "switchToDarkTheme": "切换到深色主题",
+  "fontSize": "字体大小",
+  "application": "应用",
+  "aboutApp": "关于应用",
+  "checkUpdates": "检查更新",
+  "latestVersion": "已是最新版本",
+  "clearCache": "清除缓存",
+  "other": "其他",
+  "privacyPolicy": "隐私政策",
+  "userAgreement": "用户协议",
+  "clearCacheConfirm": "确定要清除应用缓存吗？",
+  "cancel": "取消",
+  "confirm": "确定",
+  "cacheCleared": "缓存已清除",
+  "appName": "Flutter应用",
+  "appVersion": "1.0.0",
+  "appDescription": "这是一个使用Flutter开发的示例应用。",
+  "responsiveDesign": "响应式设计",
+  "responsiveDesignDescription": "此页面演示了不同屏幕尺寸的响应式设计",
+  "smallScreen": "小屏幕",
+  "mediumScreen": "中等屏幕",
+  "largeScreen": "大屏幕",
+  "screenSize": "屏幕尺寸: {width} x {height}",
+  "deviceType": "设备类型: {type}",
+  "sharedElementAnimation": "共享元素动画",
+  "sharedElementDescription": "此页面演示了共享元素动画效果",
+  "tapToAnimate": "点击动画",
+  "sharedElementDemo": "共享元素演示",
+  "animationPage": "动画页面",
+  "returnToHome": "返回首页",
+  "language": "语言",
+  "selectLanguage": "选择语言",
+  "english": "英文",
+  "chinese": "中文",
   "@screenTestCounter": {
     "placeholders": {
       "count": {"type": "int"}
@@ -19,6 +75,22 @@
     "placeholders": {
       "name": {"type": "String"},
       "age": {"type": "int"}
+    }
+  },
+  "@userId": {
+    "placeholders": {
+      "username": {"type": "String"}
+    }
+  },
+  "@screenSize": {
+    "placeholders": {
+      "width": {"type": "int"},
+      "height": {"type": "int"}
+    }
+  },
+  "@deviceType": {
+    "placeholders": {
+      "type": {"type": "String"}
     }
   }
 }

@@ -10,6 +10,62 @@
   "firstSection": "First Section",
   "secondSection": "Second Section",
   "studentNameAge": "Name: {name}, Age: {age}",
+  "welcomeLogin": "Welcome Login",
+  "username": "Username",
+  "password": "Password",
+  "rememberUser": "Remember Current User",
+  "login": "Login",
+  "loginHint": "Hint: Enter any username and password to login",
+  "loginError": "Username or password is incorrect",
+  "profile": "Profile",
+  "unknownUser": "Unknown User",
+  "userId": "User ID: {username}",
+  "settings": "Settings",
+  "accountInfo": "Account Info",
+  "securitySettings": "Security Settings",
+  "notificationSettings": "Notification Settings",
+  "helpFeedback": "Help & Feedback",
+  "rememberedUser": "Current user remembered",
+  "logout": "Logout",
+  "notifications": "Notifications",
+  "enableNotifications": "Enable Notifications",
+  "receiveNotifications": "Receive app notifications",
+  "appearance": "Appearance",
+  "darkMode": "Dark Mode",
+  "switchToDarkTheme": "Switch to dark theme",
+  "fontSize": "Font Size",
+  "application": "Application",
+  "aboutApp": "About App",
+  "checkUpdates": "Check Updates",
+  "latestVersion": "Latest version",
+  "clearCache": "Clear Cache",
+  "other": "Other",
+  "privacyPolicy": "Privacy Policy",
+  "userAgreement": "User Agreement",
+  "clearCacheConfirm": "Are you sure you want to clear app cache?",
+  "cancel": "Cancel",
+  "confirm": "Confirm",
+  "cacheCleared": "Cache cleared",
+  "appName": "Flutter App",
+  "appVersion": "1.0.0",
+  "appDescription": "This is a sample app developed with Flutter.",
+  "responsiveDesign": "Responsive Design",
+  "responsiveDesignDescription": "This page demonstrates responsive design for different screen sizes",
+  "smallScreen": "Small Screen",
+  "mediumScreen": "Medium Screen",
+  "largeScreen": "Large Screen",
+  "screenSize": "Screen Size: {width} x {height}",
+  "deviceType": "Device Type: {type}",
+  "sharedElementAnimation": "Shared Element Animation",
+  "sharedElementDescription": "This page demonstrates shared element animations",
+  "tapToAnimate": "Tap to animate",
+  "sharedElementDemo": "Shared Element Demo",
+  "animationPage": "Animation Page",
+  "returnToHome": "Return to Home",
+  "language": "Language",
+  "selectLanguage": "Select Language",
+  "english": "English",
+  "chinese": "Chinese",
   "@screenTestCounter": {
     "placeholders": {
       "count": {"type": "int"}
@@ -19,6 +75,22 @@
     "placeholders": {
       "name": {"type": "String"},
       "age": {"type": "int"}
+    }
+  },
+  "@userId": {
+    "placeholders": {
+      "username": {"type": "String"}
+    }
+  },
+  "@screenSize": {
+    "placeholders": {
+      "width": {"type": "int"},
+      "height": {"type": "int"}
+    }
+  },
+  "@deviceType": {
+    "placeholders": {
+      "type": {"type": "String"}
     }
   }
 }

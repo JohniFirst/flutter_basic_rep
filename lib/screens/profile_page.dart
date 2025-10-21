@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../services/auth_service.dart';
 import 'login_screen.dart';
+import '../app_localizations.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -41,7 +42,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('个人资料'),
+        title: Text(AppLocalizations.of(context).profile),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: Padding(
@@ -66,7 +67,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            _currentUsername ?? '未知用户',
+                            _currentUsername ?? AppLocalizations.of(context).unknownUser,
                             style: const TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
@@ -74,7 +75,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                           const SizedBox(height: 4),
                           Text(
-                            '用户ID: ${_currentUsername ?? 'N/A'}',
+                            AppLocalizations.of(context).userId(_currentUsername ?? 'N/A'),
                             style: TextStyle(color: Colors.grey[600]),
                           ),
                         ],
@@ -88,9 +89,9 @@ class _ProfilePageState extends State<ProfilePage> {
             const SizedBox(height: 20),
 
             // 设置选项
-            const Text(
-              '设置',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            Text(
+              AppLocalizations.of(context).settings,
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 10),
 
@@ -99,45 +100,45 @@ class _ProfilePageState extends State<ProfilePage> {
                 children: [
                   ListTile(
                     leading: const Icon(Icons.account_circle),
-                    title: const Text('账户信息'),
+                    title: Text(AppLocalizations.of(context).accountInfo),
                     trailing: const Icon(Icons.chevron_right),
                     onTap: () {
                       ScaffoldMessenger.of(
                         context,
-                      ).showSnackBar(const SnackBar(content: Text('账户信息')));
+                      ).showSnackBar(SnackBar(content: Text(AppLocalizations.of(context).accountInfo)));
                     },
                   ),
                   const Divider(height: 1),
                   ListTile(
                     leading: const Icon(Icons.security),
-                    title: const Text('安全设置'),
+                    title: Text(AppLocalizations.of(context).securitySettings),
                     trailing: const Icon(Icons.chevron_right),
                     onTap: () {
                       ScaffoldMessenger.of(
                         context,
-                      ).showSnackBar(const SnackBar(content: Text('安全设置')));
+                      ).showSnackBar(SnackBar(content: Text(AppLocalizations.of(context).securitySettings)));
                     },
                   ),
                   const Divider(height: 1),
                   ListTile(
                     leading: const Icon(Icons.notifications),
-                    title: const Text('通知设置'),
+                    title: Text(AppLocalizations.of(context).notificationSettings),
                     trailing: const Icon(Icons.chevron_right),
                     onTap: () {
                       ScaffoldMessenger.of(
                         context,
-                      ).showSnackBar(const SnackBar(content: Text('通知设置')));
+                      ).showSnackBar(SnackBar(content: Text(AppLocalizations.of(context).notificationSettings)));
                     },
                   ),
                   const Divider(height: 1),
                   ListTile(
                     leading: const Icon(Icons.help),
-                    title: const Text('帮助与反馈'),
+                    title: Text(AppLocalizations.of(context).helpFeedback),
                     trailing: const Icon(Icons.chevron_right),
                     onTap: () {
                       ScaffoldMessenger.of(
                         context,
-                      ).showSnackBar(const SnackBar(content: Text('帮助与反馈')));
+                      ).showSnackBar(SnackBar(content: Text(AppLocalizations.of(context).helpFeedback)));
                     },
                   ),
                 ],
@@ -156,7 +157,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     children: [
                       Icon(Icons.check_circle, color: Colors.green),
                       SizedBox(width: 8),
-                      Text('已记住当前用户'),
+                      Text(AppLocalizations.of(context).rememberedUser),
                     ],
                   ),
                 ),
@@ -175,7 +176,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   padding: const EdgeInsets.symmetric(vertical: 16),
                 ),
                 icon: const Icon(Icons.logout),
-                label: const Text('退出登录'),
+                label: Text(AppLocalizations.of(context).logout),
               ),
             ),
           ],

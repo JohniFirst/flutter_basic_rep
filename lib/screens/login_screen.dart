@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../services/auth_service.dart';
 import 'main_navigation_screen.dart';
+import '../app_localizations.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -65,8 +66,8 @@ class _LoginScreenState extends State<LoginScreen> {
         // 登录失败，显示错误信息
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('用户名或密码错误'),
+            SnackBar(
+              content: Text(AppLocalizations.of(context).loginError),
               backgroundColor: Colors.red,
             ),
           );
@@ -95,9 +96,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   color: Colors.blue,
                 ),
                 const SizedBox(height: 32),
-                const Text(
-                  '欢迎登录',
-                  style: TextStyle(
+                Text(
+                  AppLocalizations.of(context).welcomeLogin,
+                  style: const TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.bold,
                     color: Colors.black87,
@@ -109,16 +110,16 @@ class _LoginScreenState extends State<LoginScreen> {
                 // 用户名输入框
                 TextFormField(
                   controller: _usernameController,
-                  decoration: const InputDecoration(
-                    labelText: '用户名',
-                    prefixIcon: Icon(Icons.person),
-                    border: OutlineInputBorder(),
+                  decoration: InputDecoration(
+                    labelText: AppLocalizations.of(context).username,
+                    prefixIcon: const Icon(Icons.person),
+                    border: const OutlineInputBorder(),
                     filled: true,
                     fillColor: Colors.white,
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return '请输入用户名';
+                      return AppLocalizations.of(context).username;
                     }
                     return null;
                   },
@@ -129,16 +130,16 @@ class _LoginScreenState extends State<LoginScreen> {
                 TextFormField(
                   controller: _passwordController,
                   obscureText: true,
-                  decoration: const InputDecoration(
-                    labelText: '密码',
-                    prefixIcon: Icon(Icons.lock),
-                    border: OutlineInputBorder(),
+                  decoration: InputDecoration(
+                    labelText: AppLocalizations.of(context).password,
+                    prefixIcon: const Icon(Icons.lock),
+                    border: const OutlineInputBorder(),
                     filled: true,
                     fillColor: Colors.white,
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return '请输入密码';
+                      return AppLocalizations.of(context).password;
                     }
                     return null;
                   },
@@ -156,7 +157,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         });
                       },
                     ),
-                    const Text('记住当前用户'),
+                    Text(AppLocalizations.of(context).rememberUser),
                   ],
                 ),
                 const SizedBox(height: 24),
@@ -181,17 +182,17 @@ class _LoginScreenState extends State<LoginScreen> {
                             valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                           ),
                         )
-                      : const Text(
-                          '登录',
-                          style: TextStyle(fontSize: 16),
+                      : Text(
+                          AppLocalizations.of(context).login,
+                          style: const TextStyle(fontSize: 16),
                         ),
                 ),
                 const SizedBox(height: 16),
 
                 // 提示信息
-                const Text(
-                  '提示：输入任意用户名和密码即可登录',
-                  style: TextStyle(
+                Text(
+                  AppLocalizations.of(context).loginHint,
+                  style: const TextStyle(
                     color: Colors.grey,
                     fontSize: 12,
                   ),

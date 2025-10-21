@@ -3,6 +3,9 @@ import 'home_page.dart';
 import 'profile_page.dart';
 import 'settings_page.dart';
 import 'screen_test.dart';
+import 'responsive_design_page.dart';
+import 'shared_element_animation_page.dart';
+import '../app_localizations.dart';
 
 class MainNavigationScreen extends StatefulWidget {
   const MainNavigationScreen({super.key});
@@ -18,6 +21,8 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   final List<Widget> _pages = [
     const HomePage(),
     const ScreenTest(),
+    const ResponsiveDesignPage(),
+    const SharedElementAnimationPage(),
     const ProfilePage(),
     const SettingsPage(),
   ];
@@ -25,10 +30,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: IndexedStack(
-        index: _currentIndex,
-        children: _pages,
-      ),
+      body: IndexedStack(index: _currentIndex, children: _pages),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         currentIndex: _currentIndex,
@@ -39,22 +41,30 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
         },
         selectedItemColor: Colors.blue,
         unselectedItemColor: Colors.grey,
-        items: const [
+        items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: '首页',
+            icon: const Icon(Icons.home),
+            label: AppLocalizations.of(context).homeTitle,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.phone),
-            label: '测试',
+            icon: const Icon(Icons.phone),
+            label: AppLocalizations.of(context).navToScreenTest,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: '个人',
+            icon: const Icon(Icons.pageview),
+            label: AppLocalizations.of(context).responsiveDesign,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: '设置',
+            icon: const Icon(Icons.animation),
+            label: AppLocalizations.of(context).sharedElementAnimation,
+          ),
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.person),
+            label: AppLocalizations.of(context).profile,
+          ),
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.settings),
+            label: AppLocalizations.of(context).settings,
           ),
         ],
       ),
