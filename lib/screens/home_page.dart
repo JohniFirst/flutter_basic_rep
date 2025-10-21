@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import '../services/auth_service.dart';
 import 'login_screen.dart';
+import 'responsive_design_page.dart';
+import 'shared_element_animation_page.dart';
+import '../app_localizations.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -60,65 +63,59 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             // 欢迎信息
-            const Icon(
-              Icons.home,
-              size: 80,
-              color: Colors.blue,
-            ),
+            const Icon(Icons.home, size: 80, color: Colors.blue),
             const SizedBox(height: 20),
-            Text(
-              '欢迎回来！',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
+            Text('欢迎回来！', style: Theme.of(context).textTheme.headlineMedium),
             if (_currentUsername != null) ...[
               const SizedBox(height: 10),
               Text(
                 '当前用户：$_currentUsername',
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  color: Colors.grey[600],
-                ),
+                style: Theme.of(
+                  context,
+                ).textTheme.titleMedium?.copyWith(color: Colors.grey[600]),
               ),
             ],
             const SizedBox(height: 40),
-            
+
             // 计数器
-            const Text(
-              '计数器：',
-              style: TextStyle(fontSize: 18),
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineLarge,
-            ),
+            const Text('计数器：', style: TextStyle(fontSize: 18)),
+            Text('$_counter', style: Theme.of(context).textTheme.headlineLarge),
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: _incrementCounter,
               child: const Text('增加计数'),
             ),
-            
+
             const SizedBox(height: 40),
-            
+
             // 功能按钮
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 ElevatedButton.icon(
                   onPressed: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('功能1')),
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const ResponsiveDesignPage(),
+                      ),
                     );
                   },
-                  icon: const Icon(Icons.star),
-                  label: const Text('功能1'),
+                  icon: const Icon(Icons.pageview),
+                  label: Text(AppLocalizations.of(context).responsiveDesign),
                 ),
                 ElevatedButton.icon(
                   onPressed: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('功能2')),
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            const SharedElementAnimationPage(),
+                      ),
                     );
                   },
-                  icon: const Icon(Icons.favorite),
-                  label: const Text('功能2'),
+                  icon: const Icon(Icons.animation),
+                  label: Text(
+                    AppLocalizations.of(context).sharedElementAnimation,
+                  ),
                 ),
               ],
             ),

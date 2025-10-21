@@ -12,14 +12,14 @@ class SharedElementAnimationPage extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(8.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Card(
               elevation: 4,
               child: Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(8.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -27,7 +27,7 @@ class SharedElementAnimationPage extends StatelessWidget {
                       AppLocalizations.of(context).sharedElementDescription,
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: 8),
                     Text(
                       AppLocalizations.of(context).tapToAnimate,
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
@@ -40,19 +40,19 @@ class SharedElementAnimationPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 24),
-            
+
             // 图片共享元素动画
             _buildImageAnimationCard(context),
             const SizedBox(height: 24),
-            
+
             // 文本共享元素动画
             _buildTextAnimationCard(context),
             const SizedBox(height: 24),
-            
+
             // 图标共享元素动画
             _buildIconAnimationCard(context),
             const SizedBox(height: 24),
-            
+
             // 卡片共享元素动画
             _buildCardAnimationCard(context),
           ],
@@ -74,9 +74,9 @@ class SharedElementAnimationPage extends StatelessWidget {
             children: [
               Text(
                 'Image Animation',
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
+                style: Theme.of(
+                  context,
+                ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 12),
               Hero(
@@ -92,11 +92,7 @@ class SharedElementAnimationPage extends StatelessWidget {
                       end: Alignment.bottomRight,
                     ),
                   ),
-                  child: const Icon(
-                    Icons.image,
-                    size: 80,
-                    color: Colors.white,
-                  ),
+                  child: const Icon(Icons.image, size: 80, color: Colors.white),
                 ),
               ),
               const SizedBox(height: 12),
@@ -124,9 +120,9 @@ class SharedElementAnimationPage extends StatelessWidget {
             children: [
               Text(
                 'Text Animation',
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
+                style: Theme.of(
+                  context,
+                ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 12),
               Hero(
@@ -172,9 +168,9 @@ class SharedElementAnimationPage extends StatelessWidget {
             children: [
               Text(
                 'Icon Animation',
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
+                style: Theme.of(
+                  context,
+                ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 12),
               Center(
@@ -220,9 +216,9 @@ class SharedElementAnimationPage extends StatelessWidget {
             children: [
               Text(
                 'Card Animation',
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
+                style: Theme.of(
+                  context,
+                ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 12),
               Hero(
@@ -240,11 +236,7 @@ class SharedElementAnimationPage extends StatelessWidget {
                   ),
                   child: const Column(
                     children: [
-                      Icon(
-                        Icons.card_giftcard,
-                        size: 40,
-                        color: Colors.white,
-                      ),
+                      Icon(Icons.card_giftcard, size: 40, color: Colors.white),
                       SizedBox(height: 8),
                       Text(
                         'Gift Card',
@@ -277,10 +269,7 @@ class SharedElementAnimationPage extends StatelessWidget {
           return DetailPage(type: type);
         },
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
-          return FadeTransition(
-            opacity: animation,
-            child: child,
-          );
+          return FadeTransition(opacity: animation, child: child);
         },
         transitionDuration: const Duration(milliseconds: 300),
       ),
@@ -323,7 +312,10 @@ class DetailPage extends StatelessWidget {
               icon: const Icon(Icons.arrow_back),
               label: Text(AppLocalizations.of(context).returnToHome),
               style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 24,
+                  vertical: 12,
+                ),
               ),
             ),
           ],
@@ -348,11 +340,7 @@ class DetailPage extends StatelessWidget {
                 end: Alignment.bottomRight,
               ),
             ),
-            child: const Icon(
-              Icons.image,
-              size: 100,
-              color: Colors.white,
-            ),
+            child: const Icon(Icons.image, size: 100, color: Colors.white),
           ),
         );
       case 'text':
@@ -384,11 +372,7 @@ class DetailPage extends StatelessWidget {
               shape: BoxShape.circle,
               border: Border.all(color: Colors.orange, width: 4),
             ),
-            child: const Icon(
-              Icons.star,
-              size: 80,
-              color: Colors.orange,
-            ),
+            child: const Icon(Icons.star, size: 80, color: Colors.orange),
           ),
         );
       case 'card':
@@ -408,11 +392,7 @@ class DetailPage extends StatelessWidget {
             child: const Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(
-                  Icons.card_giftcard,
-                  size: 60,
-                  color: Colors.white,
-                ),
+                Icon(Icons.card_giftcard, size: 60, color: Colors.white),
                 SizedBox(height: 12),
                 Text(
                   'Gift Card',

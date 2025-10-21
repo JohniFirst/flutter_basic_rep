@@ -3,8 +3,6 @@ import 'home_page.dart';
 import 'profile_page.dart';
 import 'settings_page.dart';
 import 'screen_test.dart';
-import 'responsive_design_page.dart';
-import 'shared_element_animation_page.dart';
 import '../app_localizations.dart';
 
 class MainNavigationScreen extends StatefulWidget {
@@ -21,8 +19,6 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   final List<Widget> _pages = [
     const HomePage(),
     const ScreenTest(),
-    const ResponsiveDesignPage(),
-    const SharedElementAnimationPage(),
     const ProfilePage(),
     const SettingsPage(),
   ];
@@ -49,14 +45,6 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
           BottomNavigationBarItem(
             icon: const Icon(Icons.phone),
             label: AppLocalizations.of(context).navToScreenTest,
-          ),
-          BottomNavigationBarItem(
-            icon: const Icon(Icons.pageview),
-            label: AppLocalizations.of(context).responsiveDesign,
-          ),
-          BottomNavigationBarItem(
-            icon: const Icon(Icons.animation),
-            label: AppLocalizations.of(context).sharedElementAnimation,
           ),
           BottomNavigationBarItem(
             icon: const Icon(Icons.person),

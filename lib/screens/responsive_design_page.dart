@@ -8,7 +8,7 @@ class ResponsiveDesignPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-    
+
     // 根据屏幕宽度判断设备类型
     String deviceType;
     if (screenWidth < 600) {
@@ -29,28 +29,53 @@ class ResponsiveDesignPage extends StatelessWidget {
           // 根据屏幕宽度决定布局
           if (constraints.maxWidth < 600) {
             // 小屏幕布局 - 单列
-            return _buildSmallScreenLayout(context, screenWidth, screenHeight, deviceType);
+            return _buildSmallScreenLayout(
+              context,
+              screenWidth,
+              screenHeight,
+              deviceType,
+            );
           } else if (constraints.maxWidth < 1200) {
             // 中等屏幕布局 - 两列
-            return _buildMediumScreenLayout(context, screenWidth, screenHeight, deviceType);
+            return _buildMediumScreenLayout(
+              context,
+              screenWidth,
+              screenHeight,
+              deviceType,
+            );
           } else {
             // 大屏幕布局 - 三列
-            return _buildLargeScreenLayout(context, screenWidth, screenHeight, deviceType);
+            return _buildLargeScreenLayout(
+              context,
+              screenWidth,
+              screenHeight,
+              deviceType,
+            );
           }
         },
       ),
     );
   }
 
-  Widget _buildSmallScreenLayout(BuildContext context, double width, double height, String deviceType) {
+  Widget _buildSmallScreenLayout(
+    BuildContext context,
+    double width,
+    double height,
+    String deviceType,
+  ) {
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(8.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _buildInfoCard(context, width, height, deviceType),
           const SizedBox(height: 16),
-          _buildContentCard(context, 'Card 1', Colors.blue, Icons.phone_android),
+          _buildContentCard(
+            context,
+            'Card 1',
+            Colors.blue,
+            Icons.phone_android,
+          ),
           const SizedBox(height: 16),
           _buildContentCard(context, 'Card 2', Colors.green, Icons.tablet),
           const SizedBox(height: 16),
@@ -60,9 +85,14 @@ class ResponsiveDesignPage extends StatelessWidget {
     );
   }
 
-  Widget _buildMediumScreenLayout(BuildContext context, double width, double height, String deviceType) {
+  Widget _buildMediumScreenLayout(
+    BuildContext context,
+    double width,
+    double height,
+    String deviceType,
+  ) {
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(8.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -71,11 +101,21 @@ class ResponsiveDesignPage extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                child: _buildContentCard(context, 'Card 1', Colors.blue, Icons.phone_android),
+                child: _buildContentCard(
+                  context,
+                  'Card 1',
+                  Colors.blue,
+                  Icons.phone_android,
+                ),
               ),
               const SizedBox(width: 16),
               Expanded(
-                child: _buildContentCard(context, 'Card 2', Colors.green, Icons.tablet),
+                child: _buildContentCard(
+                  context,
+                  'Card 2',
+                  Colors.green,
+                  Icons.tablet,
+                ),
               ),
             ],
           ),
@@ -86,9 +126,14 @@ class ResponsiveDesignPage extends StatelessWidget {
     );
   }
 
-  Widget _buildLargeScreenLayout(BuildContext context, double width, double height, String deviceType) {
+  Widget _buildLargeScreenLayout(
+    BuildContext context,
+    double width,
+    double height,
+    String deviceType,
+  ) {
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(8.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -97,15 +142,30 @@ class ResponsiveDesignPage extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                child: _buildContentCard(context, 'Card 1', Colors.blue, Icons.phone_android),
+                child: _buildContentCard(
+                  context,
+                  'Card 1',
+                  Colors.blue,
+                  Icons.phone_android,
+                ),
               ),
               const SizedBox(width: 16),
               Expanded(
-                child: _buildContentCard(context, 'Card 2', Colors.green, Icons.tablet),
+                child: _buildContentCard(
+                  context,
+                  'Card 2',
+                  Colors.green,
+                  Icons.tablet,
+                ),
               ),
               const SizedBox(width: 16),
               Expanded(
-                child: _buildContentCard(context, 'Card 3', Colors.orange, Icons.computer),
+                child: _buildContentCard(
+                  context,
+                  'Card 3',
+                  Colors.orange,
+                  Icons.computer,
+                ),
               ),
             ],
           ),
@@ -114,11 +174,16 @@ class ResponsiveDesignPage extends StatelessWidget {
     );
   }
 
-  Widget _buildInfoCard(BuildContext context, double width, double height, String deviceType) {
+  Widget _buildInfoCard(
+    BuildContext context,
+    double width,
+    double height,
+    String deviceType,
+  ) {
     return Card(
       elevation: 4,
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(8.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -132,7 +197,9 @@ class ResponsiveDesignPage extends StatelessWidget {
                 Icon(Icons.info, color: Theme.of(context).colorScheme.primary),
                 const SizedBox(width: 8),
                 Text(
-                  AppLocalizations.of(context).screenSize(width.toInt(), height.toInt()),
+                  AppLocalizations.of(
+                    context,
+                  ).screenSize(width.toInt(), height.toInt()),
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
               ],
@@ -140,7 +207,10 @@ class ResponsiveDesignPage extends StatelessWidget {
             const SizedBox(height: 8),
             Row(
               children: [
-                Icon(Icons.devices, color: Theme.of(context).colorScheme.primary),
+                Icon(
+                  Icons.devices,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
                 const SizedBox(width: 8),
                 Text(
                   AppLocalizations.of(context).deviceType(deviceType),
@@ -154,15 +224,23 @@ class ResponsiveDesignPage extends StatelessWidget {
     );
   }
 
-  Widget _buildContentCard(BuildContext context, String title, Color color, IconData icon) {
+  Widget _buildContentCard(
+    BuildContext context,
+    String title,
+    Color color,
+    IconData icon,
+  ) {
     return Card(
       elevation: 2,
       child: Container(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(8.0),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
           gradient: LinearGradient(
-            colors: [color.withValues(alpha: 0.1), color.withValues(alpha: 0.05)],
+            colors: [
+              color.withValues(alpha: 0.1),
+              color.withValues(alpha: 0.05),
+            ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -193,9 +271,9 @@ class ResponsiveDesignPage extends StatelessWidget {
             const SizedBox(height: 12),
             ElevatedButton(
               onPressed: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('$title tapped!')),
-                );
+                ScaffoldMessenger.of(
+                  context,
+                ).showSnackBar(SnackBar(content: Text('$title tapped!')));
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: color,
