@@ -20,7 +20,7 @@ class _SettingsPageState extends State<SettingsPage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: ListView(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(8.0),
         children: [
           // 通知设置
           Card(
@@ -31,10 +31,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   padding: EdgeInsets.all(16.0),
                   child: Text(
                     '通知',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ),
                 SwitchListTile(
@@ -50,9 +47,9 @@ class _SettingsPageState extends State<SettingsPage> {
               ],
             ),
           ),
-          
+
           const SizedBox(height: 16),
-          
+
           // 外观设置
           Card(
             child: Column(
@@ -62,10 +59,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   padding: EdgeInsets.all(16.0),
                   child: Text(
                     '外观',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ),
                 SwitchListTile(
@@ -99,9 +93,9 @@ class _SettingsPageState extends State<SettingsPage> {
               ],
             ),
           ),
-          
+
           const SizedBox(height: 16),
-          
+
           // 应用设置
           Card(
             child: Column(
@@ -111,10 +105,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   padding: EdgeInsets.all(16.0),
                   child: Text(
                     '应用',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ),
                 ListTile(
@@ -131,9 +122,9 @@ class _SettingsPageState extends State<SettingsPage> {
                   title: const Text('检查更新'),
                   trailing: const Icon(Icons.chevron_right),
                   onTap: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('已是最新版本')),
-                    );
+                    ScaffoldMessenger.of(
+                      context,
+                    ).showSnackBar(const SnackBar(content: Text('已是最新版本')));
                   },
                 ),
                 const Divider(height: 1),
@@ -148,9 +139,9 @@ class _SettingsPageState extends State<SettingsPage> {
               ],
             ),
           ),
-          
+
           const SizedBox(height: 16),
-          
+
           // 其他设置
           Card(
             child: Column(
@@ -160,10 +151,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   padding: EdgeInsets.all(16.0),
                   child: Text(
                     '其他',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ),
                 ListTile(
@@ -171,9 +159,9 @@ class _SettingsPageState extends State<SettingsPage> {
                   title: const Text('隐私政策'),
                   trailing: const Icon(Icons.chevron_right),
                   onTap: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('隐私政策')),
-                    );
+                    ScaffoldMessenger.of(
+                      context,
+                    ).showSnackBar(const SnackBar(content: Text('隐私政策')));
                   },
                 ),
                 const Divider(height: 1),
@@ -182,9 +170,9 @@ class _SettingsPageState extends State<SettingsPage> {
                   title: const Text('用户协议'),
                   trailing: const Icon(Icons.chevron_right),
                   onTap: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('用户协议')),
-                    );
+                    ScaffoldMessenger.of(
+                      context,
+                    ).showSnackBar(const SnackBar(content: Text('用户协议')));
                   },
                 ),
               ],
@@ -201,9 +189,7 @@ class _SettingsPageState extends State<SettingsPage> {
       applicationName: 'Flutter应用',
       applicationVersion: '1.0.0',
       applicationIcon: const Icon(Icons.flutter_dash),
-      children: [
-        const Text('这是一个使用Flutter开发的示例应用。'),
-      ],
+      children: [const Text('这是一个使用Flutter开发的示例应用。')],
     );
   }
 
@@ -221,9 +207,9 @@ class _SettingsPageState extends State<SettingsPage> {
           TextButton(
             onPressed: () {
               Navigator.of(context).pop();
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('缓存已清除')),
-              );
+              ScaffoldMessenger.of(
+                context,
+              ).showSnackBar(const SnackBar(content: Text('缓存已清除')));
             },
             child: const Text('确定'),
           ),

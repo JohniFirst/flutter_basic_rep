@@ -45,7 +45,7 @@ class _ProfilePageState extends State<ProfilePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(8.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -58,11 +58,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     const CircleAvatar(
                       radius: 40,
                       backgroundColor: Colors.blue,
-                      child: Icon(
-                        Icons.person,
-                        size: 50,
-                        color: Colors.white,
-                      ),
+                      child: Icon(Icons.person, size: 50, color: Colors.white),
                     ),
                     const SizedBox(width: 16),
                     Expanded(
@@ -79,9 +75,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           const SizedBox(height: 4),
                           Text(
                             '用户ID: ${_currentUsername ?? 'N/A'}',
-                            style: TextStyle(
-                              color: Colors.grey[600],
-                            ),
+                            style: TextStyle(color: Colors.grey[600]),
                           ),
                         ],
                       ),
@@ -90,19 +84,16 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ),
             ),
-            
+
             const SizedBox(height: 20),
-            
+
             // 设置选项
             const Text(
               '设置',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 10),
-            
+
             Card(
               child: Column(
                 children: [
@@ -111,9 +102,9 @@ class _ProfilePageState extends State<ProfilePage> {
                     title: const Text('账户信息'),
                     trailing: const Icon(Icons.chevron_right),
                     onTap: () {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('账户信息')),
-                      );
+                      ScaffoldMessenger.of(
+                        context,
+                      ).showSnackBar(const SnackBar(content: Text('账户信息')));
                     },
                   ),
                   const Divider(height: 1),
@@ -122,9 +113,9 @@ class _ProfilePageState extends State<ProfilePage> {
                     title: const Text('安全设置'),
                     trailing: const Icon(Icons.chevron_right),
                     onTap: () {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('安全设置')),
-                      );
+                      ScaffoldMessenger.of(
+                        context,
+                      ).showSnackBar(const SnackBar(content: Text('安全设置')));
                     },
                   ),
                   const Divider(height: 1),
@@ -133,9 +124,9 @@ class _ProfilePageState extends State<ProfilePage> {
                     title: const Text('通知设置'),
                     trailing: const Icon(Icons.chevron_right),
                     onTap: () {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('通知设置')),
-                      );
+                      ScaffoldMessenger.of(
+                        context,
+                      ).showSnackBar(const SnackBar(content: Text('通知设置')));
                     },
                   ),
                   const Divider(height: 1),
@@ -144,17 +135,17 @@ class _ProfilePageState extends State<ProfilePage> {
                     title: const Text('帮助与反馈'),
                     trailing: const Icon(Icons.chevron_right),
                     onTap: () {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('帮助与反馈')),
-                      );
+                      ScaffoldMessenger.of(
+                        context,
+                      ).showSnackBar(const SnackBar(content: Text('帮助与反馈')));
                     },
                   ),
                 ],
               ),
             ),
-            
+
             const SizedBox(height: 20),
-            
+
             // 记住用户状态
             if (_isRememberUser)
               Card(
@@ -170,9 +161,9 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                 ),
               ),
-            
+
             const Spacer(),
-            
+
             // 退出登录按钮
             SizedBox(
               width: double.infinity,
