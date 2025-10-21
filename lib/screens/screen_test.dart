@@ -26,7 +26,7 @@ class _ScreenTestState extends State<ScreenTest> {
           // 配置启动模式
           mode: LaunchMode.externalApplication,
         );
-        
+
         if (launched) {
           // 成功启动电话应用
         } else {
@@ -48,10 +48,7 @@ class _ScreenTestState extends State<ScreenTest> {
       // 打开电话应用失败
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('打开电话应用失败：$e'),
-            backgroundColor: Colors.red,
-          ),
+          SnackBar(content: Text('打开电话应用失败：$e'), backgroundColor: Colors.red),
         );
       }
     }
@@ -65,27 +62,16 @@ class _ScreenTestState extends State<ScreenTest> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ElevatedButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(Icons.chevron_left_rounded),
-                SizedBox(width: 4),
-                Text(AppLocalizations.of(context).back),
-              ],
+            style: ButtonStyle(
+              padding: WidgetStateProperty.all(
+                EdgeInsets.symmetric(vertical: 28.0, horizontal: 29.0),
+              ),
+              textStyle: WidgetStateProperty.all(TextStyle(fontSize: 40)),
             ),
-          ),
-          ElevatedButton(
             onPressed: () {
               launchPhoneApp('10086');
             },
-            child: Row(
-              children: [
-                Text('call 10086')
-              ],
-            ),
+            child: Row(children: [Text('call 10086')]),
           ),
           Text(
             AppLocalizations.of(context).screenTestCounter(otherNumber),
