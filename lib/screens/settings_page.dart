@@ -230,6 +230,8 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   void _showLanguageDialog(ThemeService themeService) {
+    String selectedLanguage = themeService.language;
+    
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -237,30 +239,92 @@ class _SettingsPageState extends State<SettingsPage> {
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            ListTile(
-              title: Text(AppLocalizations.of(context).chinese),
-              leading: Radio<String>(
-                value: 'zh',
-                groupValue: themeService.language,
-                onChanged: (value) {
-                  if (value != null) {
-                    themeService.setLanguage(value);
-                    Navigator.of(context).pop();
-                  }
-                },
+            InkWell(
+              onTap: () {
+                selectedLanguage = 'zh';
+                themeService.setLanguage('zh');
+                Navigator.of(context).pop();
+              },
+              child: Container(
+                padding: EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 20.0,
+                      height: 20.0,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: selectedLanguage == 'zh' 
+                              ? Theme.of(context).primaryColor 
+                              : Colors.grey,
+                          width: 2.0,
+                        ),
+                        color: selectedLanguage == 'zh' 
+                            ? Theme.of(context).primaryColor 
+                            : Colors.transparent,
+                      ),
+                      child: selectedLanguage == 'zh' 
+                          ? Center(
+                              child: Container(
+                                width: 10.0,
+                                height: 10.0,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            )
+                          : null,
+                    ),
+                    SizedBox(width: 16.0),
+                    Text(AppLocalizations.of(context).chinese),
+                  ],
+                ),
               ),
             ),
-            ListTile(
-              title: Text(AppLocalizations.of(context).english),
-              leading: Radio<String>(
-                value: 'en',
-                groupValue: themeService.language,
-                onChanged: (value) {
-                  if (value != null) {
-                    themeService.setLanguage(value);
-                    Navigator.of(context).pop();
-                  }
-                },
+            InkWell(
+              onTap: () {
+                selectedLanguage = 'en';
+                themeService.setLanguage('en');
+                Navigator.of(context).pop();
+              },
+              child: Container(
+                padding: EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 20.0,
+                      height: 20.0,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: selectedLanguage == 'en' 
+                              ? Theme.of(context).primaryColor 
+                              : Colors.grey,
+                          width: 2.0,
+                        ),
+                        color: selectedLanguage == 'en' 
+                            ? Theme.of(context).primaryColor 
+                            : Colors.transparent,
+                      ),
+                      child: selectedLanguage == 'en' 
+                          ? Center(
+                              child: Container(
+                                width: 10.0,
+                                height: 10.0,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            )
+                          : null,
+                    ),
+                    SizedBox(width: 16.0),
+                    Text(AppLocalizations.of(context).english),
+                  ],
+                ),
               ),
             ),
           ],
