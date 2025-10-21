@@ -28,6 +28,7 @@ void _startLocalServer() async {
     final server = await HttpServer.bind('localhost', 9975);
     print('本地服务器已启动，监听端口: 9975');
     print('可以通过 http://localhost:9975/test 访问');
+    print('可以通过 http://localhost:9975/files 访问文件列表');
 
     await for (var request in server) {
       if (request.uri.path == '/test') {
@@ -35,6 +36,34 @@ void _startLocalServer() async {
           ..statusCode = HttpStatus.ok
           ..headers.contentType = ContentType.text
           ..write('hello world');
+      } else if (request.uri.path == '/files') {
+        try {
+          // 获取当前工作目录
+          final currentDir = Directory.current;
+          // 列出目录内容
+          final entities = currentDir.listSync();
+          
+          // 构建文件列表响应
+          String response = '当前目录: ${currentDir.path}\n\n';
+          response += '文件和文件夹列表:\n';
+          
+          for (var entity in entities) {
+            if (entity is Directory) {
+              response += '[目录] ${entity.path.split(Platform.pathSeparator).last}\n';
+            } else if (entity is File) {
+              response += '[文件] ${entity.path.split(Platform.pathSeparator).last}\n';
+            }
+          }
+          
+          request.response
+            ..statusCode = HttpStatus.ok
+            ..headers.contentType = ContentType.text
+            ..write(response);
+        } catch (e) {
+          request.response
+            ..statusCode = HttpStatus.internalServerError
+            ..write('获取文件列表失败: $e');
+        }
       } else {
         request.response
           ..statusCode = HttpStatus.notFound
