@@ -1,3 +1,5 @@
+import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'app_localizations.dart';
@@ -8,12 +10,41 @@ import 'services/theme_service.dart';
 import 'package:provider/provider.dart';
 
 void main() {
+  // 在桌面环境下启动本地HTTP服务器
+  if (!kIsWeb && (Platform.isWindows || Platform.isMacOS || Platform.isLinux)) {
+    _startLocalServer();
+  }
+
   runApp(
     ChangeNotifierProvider(
       create: (context) => ThemeService(),
       child: const MyApp(),
     ),
   );
+}
+
+void _startLocalServer() async {
+  try {
+    final server = await HttpServer.bind('localhost', 9975);
+    print('本地服务器已启动，监听端口: 9975');
+    print('可以通过 http://localhost:9975/test 访问');
+
+    await for (var request in server) {
+      if (request.uri.path == '/test') {
+        request.response
+          ..statusCode = HttpStatus.ok
+          ..headers.contentType = ContentType.text
+          ..write('hello world');
+      } else {
+        request.response
+          ..statusCode = HttpStatus.notFound
+          ..write('Not Found');
+      }
+      await request.response.close();
+    }
+  } catch (e) {
+    print('启动本地服务器失败: $e');
+  }
 }
 
 class MyApp extends StatelessWidget {
