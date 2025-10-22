@@ -4,6 +4,7 @@ import 'login_screen.dart';
 import 'responsive_design_page.dart';
 import 'shared_element_animation_page.dart';
 import 'form_page.dart';
+import 'list_loading_page.dart';
 import '../app_localizations.dart';
 
 class HomePage extends StatefulWidget {
@@ -91,50 +92,66 @@ class _HomePageState extends State<HomePage> {
 
             // 功能按钮
             Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    ElevatedButton.icon(
-                      onPressed: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => const ResponsiveDesignPage(),
-                          ),
-                        );
-                      },
-                      icon: const Icon(Icons.pageview),
-                      label: Text(AppLocalizations.of(context).responsiveDesign),
-                    ),
-                    ElevatedButton.icon(
-                      onPressed: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                const SharedElementAnimationPage(),
-                          ),
-                        );
-                      },
-                      icon: const Icon(Icons.animation),
-                      label: Text(
-                        AppLocalizations.of(context).sharedElementAnimation,
+                ElevatedButton.icon(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const ResponsiveDesignPage(),
                       ),
-                    ),
-                  ],
+                    );
+                  },
+                  icon: const Icon(Icons.pageview),
+                  label: Text(AppLocalizations.of(context).responsiveDesign),
                 ),
                 const SizedBox(height: 20),
                 ElevatedButton.icon(
                   onPressed: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => const FormPage(),
+                        builder: (context) =>
+                            const SharedElementAnimationPage(),
                       ),
+                    );
+                  },
+                  icon: const Icon(Icons.animation),
+                  label: Text(
+                    AppLocalizations.of(context).sharedElementAnimation,
+                  ),
+                ),
+                const SizedBox(height: 20),
+                ElevatedButton.icon(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => const FormPage()),
                     );
                   },
                   icon: const Icon(Icons.assignment),
                   label: const Text('表单示例'),
                   style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 12),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 30,
+                      vertical: 12,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                ElevatedButton.icon(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const ListLoadingPage(),
+                      ),
+                    );
+                  },
+                  icon: const Icon(Icons.list),
+                  label: const Text('列表加载示例'),
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 30,
+                      vertical: 12,
+                    ),
                   ),
                 ),
               ],
