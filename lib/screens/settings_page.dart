@@ -97,13 +97,21 @@ class _SettingsPageState extends State<SettingsPage> {
                     ),
                   ),
                 ),
+                SwitchListTile(
+                  title: Text(AppLocalizations.of(context).followSystemLanguage),
+                  subtitle: Text(AppLocalizations.of(context).autoSwitchLanguage),
+                  value: themeService.followSystemLanguage,
+                  onChanged: (value) {
+                    themeService.setFollowSystemLanguage(value);
+                  },
+                ),
                 ListTile(
                   title: Text(AppLocalizations.of(context).language),
                   subtitle: Text(themeService.language == 'zh' 
                       ? AppLocalizations.of(context).chinese 
                       : AppLocalizations.of(context).english),
                   trailing: const Icon(Icons.chevron_right),
-                  onTap: () {
+                  onTap: themeService.followSystemLanguage ? null : () {
                     _showLanguageDialog(themeService);
                   },
                 ),

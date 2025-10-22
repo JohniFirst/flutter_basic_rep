@@ -494,6 +494,18 @@ abstract class AppLocalizations {
   /// **'Language'**
   String get language;
 
+  /// No description provided for @followSystemLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Follow System Language'**
+  String get followSystemLanguage;
+
+  /// No description provided for @autoSwitchLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Automatically switch language based on system settings'**
+  String get autoSwitchLanguage;
+
   /// No description provided for @selectLanguage.
   ///
   /// In en, this message translates to:

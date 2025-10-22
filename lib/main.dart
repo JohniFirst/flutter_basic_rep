@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'app_localizations.dart';
 import 'screens/login_screen.dart';
@@ -26,9 +27,9 @@ void main() {
 void _startLocalServer() async {
   try {
     final server = await HttpServer.bind('localhost', 9975);
-    print('本地服务器已启动，监听端口: 9975');
-    print('可以通过 http://localhost:9975/test 访问');
-    print('可以通过 http://localhost:9975/files 访问文件列表');
+    // 本地服务器已启动，监听端口: 9975
+    // 可以通过 http://localhost:9975/test 访问
+    // 可以通过 http://localhost:9975/files 访问文件列表
 
     await for (var request in server) {
       if (request.uri.path == '/test') {
@@ -72,7 +73,7 @@ void _startLocalServer() async {
       await request.response.close();
     }
   } catch (e) {
-    print('启动本地服务器失败: $e');
+    // 启动本地服务器失败: $e
   }
 }
 
@@ -102,11 +103,20 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   void didChangePlatformBrightness() {
     super.didChangePlatformBrightness();
     // 获取当前的亮度模式
-    final brightness = WidgetsBinding.instance.window.platformBrightness;
+    final brightness = SchedulerBinding.instance.platformDispatcher.platformBrightness;
     
     // 获取ThemeService实例并更新主题
     final themeService = context.read<ThemeService>();
     themeService.updateSystemTheme(brightness);
+  }
+  
+  @override
+  void didChangeLocales(List<Locale>? locales) {
+    super.didChangeLocales(locales);
+    
+    // 获取ThemeService实例并更新语言
+    final themeService = context.read<ThemeService>();
+    themeService.updateSystemLanguage();
   }
 
   @override

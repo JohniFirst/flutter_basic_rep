@@ -65,6 +65,8 @@
   "animationPage": "Animation Page",
   "returnToHome": "Return to Home",
   "language": "Language",
+  "followSystemLanguage": "Follow System Language",
+  "autoSwitchLanguage": "Automatically switch language based on system settings",
   "selectLanguage": "Select Language",
   "english": "English",
   "chinese": "Chinese",

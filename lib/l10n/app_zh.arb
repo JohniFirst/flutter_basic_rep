@@ -66,6 +66,8 @@
   "returnToHome": "返回首页",
   "language": "语言",
   "selectLanguage": "选择语言",
+  "followSystemLanguage": "跟随系统语言",
+  "autoSwitchLanguage": "根据系统设置自动切换语言",
   "english": "英文",
   "chinese": "中文",
   "@screenTestCounter": {

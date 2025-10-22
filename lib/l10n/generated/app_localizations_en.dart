@@ -220,6 +220,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get language => 'Language';
 
   @override
+  String get followSystemLanguage => 'Follow System Language';
+
+  @override
+  String get autoSwitchLanguage =>
+      'Automatically switch language based on system settings';
+
+  @override
   String get selectLanguage => 'Select Language';
 
   @override

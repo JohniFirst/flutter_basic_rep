@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ThemeService extends ChangeNotifier {
@@ -7,14 +7,17 @@ class ThemeService extends ChangeNotifier {
   static const String _fontSizeKey = 'font_size';
   static const String _languageKey = 'language';
   static const String _followSystemThemeKey = 'follow_system_theme';
+  static const String _followSystemLanguageKey = 'follow_system_language';
 
   bool _isDarkMode = false;
   bool _followSystemTheme = true; // 默认跟随系统主题
+  bool _followSystemLanguage = true; // 默认跟随系统语言
   double _fontSize = 16.0;
   String _language = 'zh';
 
   bool get isDarkMode => _isDarkMode;
   bool get followSystemTheme => _followSystemTheme;
+  bool get followSystemLanguage => _followSystemLanguage;
   double get fontSize => _fontSize;
   String get language => _language;
 
@@ -25,18 +28,43 @@ class ThemeService extends ChangeNotifier {
   Future<void> _loadSettings() async {
     final prefs = await SharedPreferences.getInstance();
     _followSystemTheme = prefs.getBool(_followSystemThemeKey) ?? true;
+    _followSystemLanguage = prefs.getBool(_followSystemLanguageKey) ?? true;
     _isDarkMode = prefs.getBool(_darkModeKey) ?? false;
     _fontSize = prefs.getDouble(_fontSizeKey) ?? 16.0;
     _language = prefs.getString(_languageKey) ?? 'zh';
     
     // 如果设置为跟随系统，则更新当前主题模式
-    if (_followSystemTheme && WidgetsBinding.instance != null) {
-      final brightness = WidgetsBinding.instance!.window.platformBrightness;
+    if (_followSystemTheme) {
+      final brightness = SchedulerBinding.instance.platformDispatcher.platformBrightness;
       _isDarkMode = brightness == Brightness.dark;
+    }
+    
+    // 如果设置为跟随系统，则更新当前语言
+    if (_followSystemLanguage) {
+      _updateSystemLanguage();
     }
     
     notifyListeners();
   }
+  
+  // 更新系统语言
+  void _updateSystemLanguage() {
+      try {
+        // 获取系统语言
+        final systemLocale = SchedulerBinding.instance.platformDispatcher.locale;
+        // 只获取语言代码（如 'en', 'zh'）
+        final languageCode = systemLocale.languageCode;
+        // 检查是否支持该语言
+        if (languageCode == 'en' || languageCode == 'zh') {
+          _language = languageCode;
+        } else {
+          // 默认使用英语
+          _language = 'en';
+        }
+      } catch (e) {
+        // 可以考虑使用更好的日志方式
+      }
+    }
 
   Future<void> toggleDarkMode() async {
     _isDarkMode = !_isDarkMode;
@@ -49,8 +77,8 @@ class ThemeService extends ChangeNotifier {
     _followSystemTheme = value;
     
     // 如果设置为跟随系统，立即更新当前主题模式
-    if (value && WidgetsBinding.instance != null) {
-      final brightness = WidgetsBinding.instance!.window.platformBrightness;
+    if (value) {
+      final brightness = SchedulerBinding.instance.platformDispatcher.platformBrightness;
       _isDarkMode = brightness == Brightness.dark;
     }
     
@@ -74,13 +102,35 @@ class ThemeService extends ChangeNotifier {
 
   Future<void> setLanguage(String language) async {
     _language = language;
+    _followSystemLanguage = false; // 手动切换时不再跟随系统
     await _saveSettings();
     notifyListeners();
+  }
+  
+  Future<void> setFollowSystemLanguage(bool value) async {
+    _followSystemLanguage = value;
+    
+    // 如果设置为跟随系统，立即更新当前语言
+    if (value) {
+      _updateSystemLanguage();
+    }
+    
+    await _saveSettings();
+    notifyListeners();
+  }
+  
+  // 更新系统语言
+  void updateSystemLanguage() {
+    if (_followSystemLanguage) {
+      _updateSystemLanguage();
+      notifyListeners();
+    }
   }
 
   Future<void> _saveSettings() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool(_followSystemThemeKey, _followSystemTheme);
+    await prefs.setBool(_followSystemLanguageKey, _followSystemLanguage);
     await prefs.setBool(_darkModeKey, _isDarkMode);
     await prefs.setDouble(_fontSizeKey, _fontSize);
     await prefs.setString(_languageKey, _language);
