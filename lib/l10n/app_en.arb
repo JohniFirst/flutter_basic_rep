@@ -33,6 +33,8 @@
   "appearance": "Appearance",
   "darkMode": "Dark Mode",
   "switchToDarkTheme": "Switch to dark theme",
+  "followSystemTheme": "Follow System Theme",
+  "autoSwitchTheme": "Automatically switch theme based on system settings",
   "fontSize": "Font Size",
   "application": "Application",
   "aboutApp": "About App",

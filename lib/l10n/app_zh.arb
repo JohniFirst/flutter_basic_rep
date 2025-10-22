@@ -33,6 +33,8 @@
   "appearance": "外观",
   "darkMode": "深色模式",
   "switchToDarkTheme": "切换到深色主题",
+  "followSystemTheme": "跟随系统主题",
+  "autoSwitchTheme": "根据系统设置自动切换主题",
   "fontSize": "字体大小",
   "application": "应用",
   "aboutApp": "关于应用",

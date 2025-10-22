@@ -66,10 +66,18 @@ class _SettingsPageState extends State<SettingsPage> {
                   ),
                 ),
                 SwitchListTile(
+                  title: Text(AppLocalizations.of(context).followSystemTheme),
+                  subtitle: Text(AppLocalizations.of(context).autoSwitchTheme),
+                  value: themeService.followSystemTheme,
+                  onChanged: (value) {
+                    themeService.setFollowSystemTheme(value);
+                  },
+                ),
+                SwitchListTile(
                   title: Text(AppLocalizations.of(context).darkMode),
                   subtitle: Text(AppLocalizations.of(context).switchToDarkTheme),
                   value: themeService.isDarkMode,
-                  onChanged: (value) {
+                  onChanged: themeService.followSystemTheme ? null : (value) {
                     themeService.toggleDarkMode();
                   },
                 ),

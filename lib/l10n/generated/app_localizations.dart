@@ -302,6 +302,18 @@ abstract class AppLocalizations {
   /// **'Switch to dark theme'**
   String get switchToDarkTheme;
 
+  /// No description provided for @followSystemTheme.
+  ///
+  /// In en, this message translates to:
+  /// **'Follow System Theme'**
+  String get followSystemTheme;
+
+  /// No description provided for @autoSwitchTheme.
+  ///
+  /// In en, this message translates to:
+  /// **'Automatically switch theme based on system settings'**
+  String get autoSwitchTheme;
+
   /// No description provided for @fontSize.
   ///
   /// In en, this message translates to:

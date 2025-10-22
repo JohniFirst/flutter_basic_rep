@@ -117,6 +117,12 @@ class AppLocalizationsZh extends AppLocalizations {
   String get switchToDarkTheme => '切换到深色主题';
 
   @override
+  String get followSystemTheme => '跟随系统主题';
+
+  @override
+  String get autoSwitchTheme => '根据系统设置自动切换主题';
+
+  @override
   String get fontSize => '字体大小';
 
   @override

@@ -76,8 +76,38 @@ void _startLocalServer() async {
   }
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
+  @override
+  void initState() {
+    super.initState();
+    // 注册为WidgetsBinding的观察者
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    // 移除观察者
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangePlatformBrightness() {
+    super.didChangePlatformBrightness();
+    // 获取当前的亮度模式
+    final brightness = WidgetsBinding.instance.window.platformBrightness;
+    
+    // 获取ThemeService实例并更新主题
+    final themeService = context.read<ThemeService>();
+    themeService.updateSystemTheme(brightness);
+  }
 
   @override
   Widget build(BuildContext context) {

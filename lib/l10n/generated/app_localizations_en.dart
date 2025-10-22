@@ -117,6 +117,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get switchToDarkTheme => 'Switch to dark theme';
 
   @override
+  String get followSystemTheme => 'Follow System Theme';
+
+  @override
+  String get autoSwitchTheme =>
+      'Automatically switch theme based on system settings';
+
+  @override
   String get fontSize => 'Font Size';
 
   @override
