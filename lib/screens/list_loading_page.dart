@@ -165,10 +165,10 @@ class _ListLoadingPageState extends State<ListLoadingPage> {
                             const SizedBox(height: 12),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
+                              spacing: 12.0,
                               children: [
                                 ElevatedButton(
                                   onPressed: () {},
-
                                   child: Text('按钮1'),
                                 ),
                                 ElevatedButton(
