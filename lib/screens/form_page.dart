@@ -146,6 +146,8 @@ class _FormPageState extends State<FormPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('表单示例页面'),
+        titleTextStyle: const TextStyle(fontSize: 18), // 减小字体大小
+        toolbarHeight: 50, // 减小高度
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: SingleChildScrollView(

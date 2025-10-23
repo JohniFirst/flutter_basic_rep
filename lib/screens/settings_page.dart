@@ -20,6 +20,8 @@ class _SettingsPageState extends State<SettingsPage> {
         return Scaffold(
       appBar: AppBar(
         title: Text(AppLocalizations.of(context).settings),
+        titleTextStyle: const TextStyle(fontSize: 18), // 减小字体大小
+        toolbarHeight: 50, // 减小高度
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: ListView(

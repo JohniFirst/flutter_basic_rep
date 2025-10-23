@@ -51,14 +51,9 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('首页'),
+        titleTextStyle: const TextStyle(fontSize: 18), // 减小字体大小
+        toolbarHeight: 50, // 减小高度
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.logout),
-            onPressed: _logout,
-            tooltip: '退出登录',
-          ),
-        ],
       ),
       body: Center(
         child: Column(

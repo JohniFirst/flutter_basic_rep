@@ -22,6 +22,8 @@ class ResponsiveDesignPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(AppLocalizations.of(context).responsiveDesign),
+        titleTextStyle: const TextStyle(fontSize: 18), // 减小字体大小
+        toolbarHeight: 50, // 减小高度
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: LayoutBuilder(
