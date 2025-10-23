@@ -3,6 +3,7 @@ import 'home_page.dart';
 import 'profile_page.dart';
 import 'settings_page.dart';
 import 'screen_test.dart';
+import 'complex_list_page.dart';
 import '../app_localizations.dart';
 
 class MainNavigationScreen extends StatefulWidget {
@@ -18,7 +19,8 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   // 定义底部导航栏的页面列表
   final List<Widget> _pages = [
     const HomePage(),
-    const ScreenTest(),
+    // const ScreenTest(),
+    const ComplexListPage(),
     const ProfilePage(),
     const SettingsPage(),
   ];
@@ -42,9 +44,13 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
             icon: const Icon(Icons.home),
             label: AppLocalizations.of(context).homeTitle,
           ),
+          // BottomNavigationBarItem(
+          //   icon: const Icon(Icons.phone),
+          //   label: AppLocalizations.of(context).navToScreenTest,
+          // ),
           BottomNavigationBarItem(
-            icon: const Icon(Icons.phone),
-            label: AppLocalizations.of(context).navToScreenTest,
+            icon: const Icon(Icons.list_alt),
+            label: '复杂列表',
           ),
           BottomNavigationBarItem(
             icon: const Icon(Icons.person),
