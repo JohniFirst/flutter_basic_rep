@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
-import '../services/utility_services.dart';
+import '../../services/utility_services.dart';
 import 'package:intl/intl.dart';
 import 'complex_list_page.dart'; // 导入数据模型
 
@@ -47,7 +47,7 @@ class _ProjectDetailPageState extends State<ProjectDetailPage> {
       // 调用真实API - 适配Android设备
       // 对于Android模拟器，使用10.0.2.2访问主机上的localhost
       // 对于真机测试，需要使用计算机的实际IP地址
-      final apiUrl = 'http://192.168.11.213:3001/complex-list'; // 模拟器地址
+      final apiUrl = 'http://192.168.11.94:3001/complex-list'; // 模拟器地址
 
       final response = await http.get(Uri.parse(apiUrl));
 
@@ -580,7 +580,7 @@ class _ProjectDetailPageState extends State<ProjectDetailPage> {
                       color: Colors.grey[700],
                       height: 1.5,
                     );
-                    
+
                     return Card(
                       margin: const EdgeInsets.only(bottom: 16),
                       elevation: 1,
@@ -589,16 +589,10 @@ class _ProjectDetailPageState extends State<ProjectDetailPage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              section.title,
-                              style: sectionTitleStyle,
-                            ),
+                            Text(section.title, style: sectionTitleStyle),
                             const SizedBox(height: 12),
                             if (section.type == 'text')
-                              Text(
-                                section.content,
-                                style: sectionTextStyle,
-                              ),
+                              Text(section.content, style: sectionTextStyle),
                             if (section.type == 'image' &&
                                 section.content is List)
                               // 使用Wrap替代嵌套的GridView以提高性能
@@ -717,24 +711,20 @@ class _ProjectDetailPageState extends State<ProjectDetailPage> {
         return relationType;
     }
   }
-  
+
   // 优化的图片网格构建方法 - 使用Wrap替代嵌套的GridView
   Widget _buildImageGrid(List images) {
     // 预计算网格项宽度
     final screenWidth = MediaQuery.of(context).size.width - 64; // 考虑padding和间距
     final itemWidth = (screenWidth - 10) / 2; // 2列布局，考虑间距
-    
+
     // 缓存常用样式
     final containerDecoration = BoxDecoration(
       color: Colors.grey[200] ?? Colors.grey,
       borderRadius: BorderRadius.circular(8),
     );
-    final iconWidget = const Icon(
-      Icons.image,
-      size: 40,
-      color: Colors.grey,
-    );
-    
+    final iconWidget = const Icon(Icons.image, size: 40, color: Colors.grey);
+
     return Wrap(
       spacing: 10,
       runSpacing: 10,
@@ -747,10 +737,7 @@ class _ProjectDetailPageState extends State<ProjectDetailPage> {
             alignment: Alignment.center,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                iconWidget,
-                Text(image['alt']),
-              ],
+              children: [iconWidget, Text(image['alt'])],
             ),
           ),
         );

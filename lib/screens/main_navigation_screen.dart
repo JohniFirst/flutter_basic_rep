@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'home_page.dart';
+import 'home_page/home_page.dart';
 import 'profile_page.dart';
 import 'settings_page.dart';
-import 'complex_list_page.dart';
+import 'comlex_list/complex_list_page.dart';
 import '../app_localizations.dart';
 
 class MainNavigationScreen extends StatefulWidget {

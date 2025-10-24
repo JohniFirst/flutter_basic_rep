@@ -261,14 +261,14 @@ class _ComplexListPageState extends State<ComplexListPage> {
   final ScrollController _scrollController = ScrollController();
   // 缓存格式化器以避免重复创建
   final DateFormat _dateFormat = DateFormat('yyyy-MM-dd');
-  
+
   @override
   void initState() {
     super.initState();
     _loadInitialData();
     _scrollController.addListener(_onScroll);
   }
-  
+
   @override
   void dispose() {
     _scrollController.dispose();
@@ -290,7 +290,8 @@ class _ComplexListPageState extends State<ComplexListPage> {
       // 调用真实API - 适配Android设备
       // 对于Android模拟器，使用10.0.2.2访问主机上的localhost
       // 对于真机测试，需要使用计算机的实际IP地址
-      final apiUrl = 'http://192.168.11.213:3001/complex-list?page=$page&pageSize=$_pageSize'; // 添加分页参数
+      final apiUrl =
+          'http://192.168.11.94:3001/complex-list?page=$page&pageSize=$_pageSize'; // 添加分页参数
       final response = await http.get(Uri.parse(apiUrl));
 
       if (response.statusCode == 200) {
@@ -306,12 +307,12 @@ class _ComplexListPageState extends State<ComplexListPage> {
             projectsList.map((item) => ProjectItem.fromJson(item)).toList(),
           );
           _currentPage = page;
-          
+
           // 检查是否还有更多数据
           if (projectsList.length < _pageSize) {
             _hasMore = false;
           }
-          
+
           _isLoading = false;
           _isRefreshing = false;
         });
@@ -323,9 +324,9 @@ class _ComplexListPageState extends State<ComplexListPage> {
         _isLoading = false;
         _isRefreshing = false;
       });
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('加载数据失败: $error')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('加载数据失败: $error')));
     }
   }
 
@@ -336,16 +337,16 @@ class _ComplexListPageState extends State<ComplexListPage> {
     });
     await _fetchData(0);
   }
-  
+
   void _onScroll() {
-    if (_scrollController.position.pixels == 
+    if (_scrollController.position.pixels ==
             _scrollController.position.maxScrollExtent &&
-        !_isLoading && 
+        !_isLoading &&
         _hasMore) {
       _loadMoreData();
     }
   }
-  
+
   Future<void> _loadMoreData() async {
     setState(() {
       _isLoading = true;
@@ -391,31 +392,23 @@ class _ComplexListPageState extends State<ComplexListPage> {
     fontSize: 16, // 略微减小字体
     fontWeight: FontWeight.bold,
   );
-  
-  static const _smallTextStyle = TextStyle(
-    fontSize: 12,
-    color: Colors.grey,
-  );
-  
-  static const _tagTextStyle = TextStyle(
-    fontSize: 12,
-  );
-  
+
+  static const _smallTextStyle = TextStyle(fontSize: 12, color: Colors.grey);
+
+  static const _tagTextStyle = TextStyle(fontSize: 12);
+
   // 优化列表项构建
   Widget _buildProjectItem(ProjectItem item) {
     // 预先计算常用值
     final statusColor = _getStatusColor(item.status);
     final priorityColor = _getPriorityColor(item.priority);
     final formattedDate = _dateFormat.format(item.createdAt);
-    final authorInitial = item.author.name.isNotEmpty 
-        ? item.author.name.substring(0, 1) 
+    final authorInitial = item.author.name.isNotEmpty
+        ? item.author.name.substring(0, 1)
         : '?';
-    
+
     return Card(
-      margin: const EdgeInsets.symmetric(
-        horizontal: 16,
-        vertical: 8,
-      ),
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       elevation: 2, // 减少阴影深度
       child: Padding(
         padding: const EdgeInsets.all(12), // 略微减小内边距
@@ -456,15 +449,16 @@ class _ComplexListPageState extends State<ComplexListPage> {
             ),
 
             // 描述 - 仅在有足够空间时显示
-            if (item.description.isNotEmpty) Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8),
-              child: Text(
-                item.description,
-                style: _smallTextStyle,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
+            if (item.description.isNotEmpty)
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: Text(
+                  item.description,
+                  style: _smallTextStyle,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
-            ),
 
             // 作者信息和日期
             Row(
@@ -479,18 +473,15 @@ class _ComplexListPageState extends State<ComplexListPage> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(item.author.name, style: const TextStyle(fontSize: 14)),
                     Text(
-                      item.author.role,
-                      style: _smallTextStyle,
+                      item.author.name,
+                      style: const TextStyle(fontSize: 14),
                     ),
+                    Text(item.author.role, style: _smallTextStyle),
                   ],
                 ),
                 const Spacer(),
-                Text(
-                  formattedDate,
-                  style: _smallTextStyle,
-                ),
+                Text(formattedDate, style: _smallTextStyle),
               ],
             ),
 
@@ -506,38 +497,40 @@ class _ComplexListPageState extends State<ComplexListPage> {
                   child: Wrap(
                     spacing: 6,
                     runSpacing: 4,
-                    children: (item.metadata.tags.take(3).map((tag) { // 限制显示的标签数量
-                      return Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 8,
-                          vertical: 2,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.grey[100],
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Text(
-                          tag,
-                          style: _tagTextStyle,
-                        ),
-                      );
-                    }).toList()
-                    ..addAll(item.metadata.tags.length > 3 ? [
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 8,
-                          vertical: 2,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.grey[100],
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Text(
-                          '+${item.metadata.tags.length - 3}',
-                          style: _tagTextStyle,
-                        ),
-                      )
-                    ] : [])),
+                    children:
+                        (item.metadata.tags.take(3).map((tag) {
+                          // 限制显示的标签数量
+                          return Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 8,
+                              vertical: 2,
+                            ),
+                            decoration: BoxDecoration(
+                              color: Colors.grey[100],
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Text(tag, style: _tagTextStyle),
+                          );
+                        }).toList()..addAll(
+                          item.metadata.tags.length > 3
+                              ? [
+                                  Container(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 8,
+                                      vertical: 2,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: Colors.grey[100],
+                                      borderRadius: BorderRadius.circular(12),
+                                    ),
+                                    child: Text(
+                                      '+${item.metadata.tags.length - 3}',
+                                      style: _tagTextStyle,
+                                    ),
+                                  ),
+                                ]
+                              : [],
+                        )),
                   ),
                 ),
                 Container(
@@ -567,8 +560,14 @@ class _ComplexListPageState extends State<ComplexListPage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  _buildStatItem(Icons.visibility, '${item.metadata.viewCount}'),
-                  _buildStatItem(Icons.pie_chart, '${item.statistics.progress}%'),
+                  _buildStatItem(
+                    Icons.visibility,
+                    '${item.metadata.viewCount}',
+                  ),
+                  _buildStatItem(
+                    Icons.pie_chart,
+                    '${item.statistics.progress}%',
+                  ),
                 ],
               ),
             ),
@@ -597,25 +596,18 @@ class _ComplexListPageState extends State<ComplexListPage> {
       ),
     );
   }
-  
+
   // 可重用的统计项组件
   Widget _buildStatItem(IconData icon, String text) {
     return Row(
       children: [
-        Icon(
-          icon,
-          size: 16,
-          color: Colors.grey,
-        ),
+        Icon(icon, size: 16, color: Colors.grey),
         const SizedBox(width: 4),
-        Text(
-          text,
-          style: _smallTextStyle,
-        ),
+        Text(text, style: _smallTextStyle),
       ],
     );
   }
-  
+
   // 加载更多项
   Widget _buildLoadingItem() {
     return Padding(

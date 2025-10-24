@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import '../services/auth_service.dart';
-import 'login_screen.dart';
+import '../../services/auth_service.dart';
+import '../login_screen.dart';
 import 'responsive_design_page.dart';
 import 'shared_element_animation_page.dart';
 import 'form_page.dart';
 import 'list_loading_page.dart';
-import '../app_localizations.dart';
+import '../../app_localizations.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -49,7 +49,7 @@ class _HomePageState extends State<HomePage> {
   void _showBottomSheetForm() {
     final TextEditingController titleController = TextEditingController();
     final TextEditingController contentController = TextEditingController();
-    
+
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -74,10 +74,7 @@ class _HomePageState extends State<HomePage> {
               const Center(
                 child: Text(
                   '填写表单',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
               ),
               const SizedBox(height: 20),
@@ -124,7 +121,7 @@ class _HomePageState extends State<HomePage> {
                   ElevatedButton(
                     onPressed: () {
                       // 这里可以处理表单提交逻辑
-                      if (titleController.text.isNotEmpty && 
+                      if (titleController.text.isNotEmpty &&
                           contentController.text.isNotEmpty) {
                         // 显示成功提示
                         ScaffoldMessenger.of(context).showSnackBar(

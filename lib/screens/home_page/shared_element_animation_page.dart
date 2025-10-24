@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../app_localizations.dart';
+import '../../app_localizations.dart';
 
 class SharedElementAnimationPage extends StatelessWidget {
   const SharedElementAnimationPage({super.key});
