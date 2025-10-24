@@ -12,13 +12,14 @@ class ExamplesCollectionPage extends StatefulWidget {
   State<ExamplesCollectionPage> createState() => _ExamplesCollectionPageState();
 }
 
-class _ExamplesCollectionPageState extends State<ExamplesCollectionPage> with SingleTickerProviderStateMixin {
+class _ExamplesCollectionPageState extends State<ExamplesCollectionPage>
+    with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 4, vsync: this);
+    _tabController = TabController(length: 7, vsync: this);
   }
 
   @override
@@ -35,10 +36,16 @@ class _ExamplesCollectionPageState extends State<ExamplesCollectionPage> with Si
         bottom: TabBar(
           controller: _tabController,
           isScrollable: true,
+          labelStyle: TextStyle(fontSize: 12.0),
+          // dividerHeight: 0,
+          tabAlignment: TabAlignment.start,
           tabs: const [
             Tab(icon: Icon(Icons.list), text: '列表加载'),
             Tab(icon: Icon(Icons.assignment), text: '表单示例'),
             Tab(icon: Icon(Icons.pageview), text: '响应式设计'),
+            Tab(icon: Icon(Icons.animation), text: '共享元素动画'),
+            Tab(icon: Icon(Icons.animation), text: '共享元素动画'),
+            Tab(icon: Icon(Icons.animation), text: '共享元素动画'),
             Tab(icon: Icon(Icons.animation), text: '共享元素动画'),
           ],
         ),
@@ -50,6 +57,9 @@ class _ExamplesCollectionPageState extends State<ExamplesCollectionPage> with Si
           FormPage(),
           ResponsiveDesignPage(),
           SharedElementAnimationPage(),
+          ResponsiveDesignPage(),
+          SharedElementAnimationPage(),
+          ResponsiveDesignPage(),
         ],
       ),
     );

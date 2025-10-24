@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import '../../services/auth_service.dart';
 import '../login_screen.dart';
 import 'examples_collection_page.dart';
-import '../../app_localizations.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
