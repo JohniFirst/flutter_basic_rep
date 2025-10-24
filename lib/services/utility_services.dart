@@ -64,7 +64,7 @@ class UtilityServices {
       
       // 确保URL包含协议
       if (!cleanUrl.startsWith(RegExp(r'^https?://', caseSensitive: false))) {
-        cleanUrl = 'http://' + cleanUrl;
+        cleanUrl = 'http://$cleanUrl';
       }
       
       // 使用tryParse来安全地解析URL

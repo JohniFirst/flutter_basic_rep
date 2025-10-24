@@ -252,7 +252,7 @@ class RelatedItem {
 }
 
 class _ComplexListPageState extends State<ComplexListPage> {
-  List<ProjectItem> _projectItems = [];
+  final List<ProjectItem> _projectItems = [];
   bool _isLoading = true;
   bool _isRefreshing = false;
   bool _hasMore = true;
@@ -464,10 +464,10 @@ class _ComplexListPageState extends State<ComplexListPage> {
             Row(
               children: [
                 CircleAvatar(
-                  child: Text(authorInitial),
                   backgroundColor: Colors.blue,
                   foregroundColor: Colors.white,
-                  radius: 16, // 减小头像大小
+                  radius: 16,
+                  child: Text(authorInitial), // 减小头像大小
                 ),
                 const SizedBox(width: 8),
                 Column(
