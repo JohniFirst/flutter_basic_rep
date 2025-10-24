@@ -24,6 +24,8 @@ class _ProjectDetailPageState extends State<ProjectDetailPage> {
   ProjectItem? _project;
   bool _isLoading = false;
   String? _error;
+  // 缓存DateFormat实例避免重复创建
+  final DateFormat _dateFormat = DateFormat('yyyy-MM-dd HH:mm:ss');
 
   @override
   void initState() {
@@ -45,7 +47,7 @@ class _ProjectDetailPageState extends State<ProjectDetailPage> {
       // 调用真实API - 适配Android设备
       // 对于Android模拟器，使用10.0.2.2访问主机上的localhost
       // 对于真机测试，需要使用计算机的实际IP地址
-      final apiUrl = 'http://192.168.122.184:3001/complex-list'; // 模拟器地址
+      final apiUrl = 'http://192.168.11.213:3001/complex-list'; // 模拟器地址
 
       final response = await http.get(Uri.parse(apiUrl));
 
@@ -326,7 +328,7 @@ class _ProjectDetailPageState extends State<ProjectDetailPage> {
                             ),
                             const SizedBox(width: 8),
                             Text(
-                              '创建时间: ${DateFormat('yyyy-MM-dd HH:mm:ss').format(_project!.createdAt)}',
+                              '创建时间: ${_dateFormat.format(_project!.createdAt)}',
                             ),
                           ],
                         ),
@@ -340,7 +342,7 @@ class _ProjectDetailPageState extends State<ProjectDetailPage> {
                             ),
                             const SizedBox(width: 8),
                             Text(
-                              '更新时间: ${DateFormat('yyyy-MM-dd HH:mm:ss').format(_project!.updatedAt)}',
+                              '更新时间: ${_dateFormat.format(_project!.updatedAt)}',
                             ),
                           ],
                         ),
@@ -568,7 +570,17 @@ class _ProjectDetailPageState extends State<ProjectDetailPage> {
                       ),
                     ),
                   ),
+                  // 缓存样式对象
                   ..._project!.content.sections.map((section) {
+                    final sectionTitleStyle = const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    );
+                    final sectionTextStyle = TextStyle(
+                      color: Colors.grey[700],
+                      height: 1.5,
+                    );
+                    
                     return Card(
                       margin: const EdgeInsets.only(bottom: 16),
                       elevation: 1,
@@ -579,57 +591,18 @@ class _ProjectDetailPageState extends State<ProjectDetailPage> {
                           children: [
                             Text(
                               section.title,
-                              style: const TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
+                              style: sectionTitleStyle,
                             ),
                             const SizedBox(height: 12),
                             if (section.type == 'text')
                               Text(
                                 section.content,
-                                style: TextStyle(
-                                  color: Colors.grey[700],
-                                  height: 1.5,
-                                ),
+                                style: sectionTextStyle,
                               ),
                             if (section.type == 'image' &&
                                 section.content is List)
-                              GridView.builder(
-                                shrinkWrap: true,
-                                physics: const NeverScrollableScrollPhysics(),
-                                gridDelegate:
-                                    const SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 2,
-                                      crossAxisSpacing: 10,
-                                      mainAxisSpacing: 10,
-                                      childAspectRatio: 1.5,
-                                    ),
-                                itemCount: (section.content as List).length,
-                                itemBuilder: (context, index) {
-                                  final image =
-                                      (section.content as List)[index];
-                                  return Container(
-                                    decoration: BoxDecoration(
-                                      color: Colors.grey[200] ?? Colors.grey,
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    alignment: Alignment.center,
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        const Icon(
-                                          Icons.image,
-                                          size: 40,
-                                          color: Colors.grey,
-                                        ),
-                                        Text(image['alt']),
-                                      ],
-                                    ),
-                                  );
-                                },
-                              ),
+                              // 使用Wrap替代嵌套的GridView以提高性能
+                              _buildImageGrid(section.content as List),
                           ],
                         ),
                       ),
@@ -743,5 +716,45 @@ class _ProjectDetailPageState extends State<ProjectDetailPage> {
       default:
         return relationType;
     }
+  }
+  
+  // 优化的图片网格构建方法 - 使用Wrap替代嵌套的GridView
+  Widget _buildImageGrid(List images) {
+    // 预计算网格项宽度
+    final screenWidth = MediaQuery.of(context).size.width - 64; // 考虑padding和间距
+    final itemWidth = (screenWidth - 10) / 2; // 2列布局，考虑间距
+    
+    // 缓存常用样式
+    final containerDecoration = BoxDecoration(
+      color: Colors.grey[200] ?? Colors.grey,
+      borderRadius: BorderRadius.circular(8),
+    );
+    final iconWidget = const Icon(
+      Icons.image,
+      size: 40,
+      color: Colors.grey,
+    );
+    
+    return Wrap(
+      spacing: 10,
+      runSpacing: 10,
+      children: images.map((image) {
+        return SizedBox(
+          width: itemWidth,
+          height: itemWidth * 1.5, // 保持1.5的宽高比
+          child: Container(
+            decoration: containerDecoration,
+            alignment: Alignment.center,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                iconWidget,
+                Text(image['alt']),
+              ],
+            ),
+          ),
+        );
+      }).toList(),
+    );
   }
 }

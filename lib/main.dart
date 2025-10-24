@@ -11,8 +11,9 @@ import 'services/theme_service.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  // 在桌面环境下启动本地HTTP服务器
-  if (!kIsWeb && (Platform.isWindows || Platform.isMacOS || Platform.isLinux)) {
+  // 仅在调试模式和桌面环境下启动本地HTTP服务器
+  // 避免在生产环境或移动设备上运行
+  if (kDebugMode && !kIsWeb && (Platform.isWindows || Platform.isMacOS || Platform.isLinux)) {
     _startLocalServer();
   }
 
@@ -27,53 +28,60 @@ void main() {
 void _startLocalServer() async {
   try {
     final server = await HttpServer.bind('localhost', 9975);
-    // 本地服务器已启动，监听端口: 9975
-    // 可以通过 http://localhost:9975/test 访问
-    // 可以通过 http://localhost:9975/files 访问文件列表
+    print('本地服务器已启动，监听端口: 9975');
 
-    await for (var request in server) {
-      if (request.uri.path == '/test') {
+    // 使用Isolate或更轻量的方式处理请求，避免阻塞主UI线程
+    // 仅在调试模式下运行
+    server.listen((request) {
+      _handleServerRequest(request);
+    });
+  } catch (e) {
+    print('启动本地服务器失败: $e');
+  }
+}
+
+void _handleServerRequest(HttpRequest request) async {
+  try {
+    if (request.uri.path == '/test') {
+      request.response
+        ..statusCode = HttpStatus.ok
+        ..headers.contentType = ContentType.text
+        ..write('hello world');
+    } else if (request.uri.path == '/files') {
+      try {
+        // 获取当前工作目录
+        final currentDir = Directory.current;
+        // 列出目录内容 - 限制数量避免处理过多文件
+        final entities = currentDir.listSync(recursive: false).take(100);
+        
+        // 构建文件列表响应
+        String response = '当前目录: ${currentDir.path}\n\n';
+        response += '文件和文件夹列表:\n';
+        
+        for (var entity in entities) {
+          if (entity is Directory) {
+            response += '[目录] ${entity.path.split(Platform.pathSeparator).last}\n';
+          } else if (entity is File) {
+            response += '[文件] ${entity.path.split(Platform.pathSeparator).last}\n';
+          }
+        }
+        
         request.response
           ..statusCode = HttpStatus.ok
           ..headers.contentType = ContentType.text
-          ..write('hello world');
-      } else if (request.uri.path == '/files') {
-        try {
-          // 获取当前工作目录
-          final currentDir = Directory.current;
-          // 列出目录内容
-          final entities = currentDir.listSync();
-          
-          // 构建文件列表响应
-          String response = '当前目录: ${currentDir.path}\n\n';
-          response += '文件和文件夹列表:\n';
-          
-          for (var entity in entities) {
-            if (entity is Directory) {
-              response += '[目录] ${entity.path.split(Platform.pathSeparator).last}\n';
-            } else if (entity is File) {
-              response += '[文件] ${entity.path.split(Platform.pathSeparator).last}\n';
-            }
-          }
-          
-          request.response
-            ..statusCode = HttpStatus.ok
-            ..headers.contentType = ContentType.text
-            ..write(response);
-        } catch (e) {
-          request.response
-            ..statusCode = HttpStatus.internalServerError
-            ..write('获取文件列表失败: $e');
-        }
-      } else {
+          ..write(response);
+      } catch (e) {
         request.response
-          ..statusCode = HttpStatus.notFound
-          ..write('Not Found');
+          ..statusCode = HttpStatus.internalServerError
+          ..write('获取文件列表失败: $e');
       }
-      await request.response.close();
+    } else {
+      request.response
+        ..statusCode = HttpStatus.notFound
+        ..write('Not Found');
     }
-  } catch (e) {
-    // 启动本地服务器失败: $e
+  } finally {
+    await request.response.close();
   }
 }
 
