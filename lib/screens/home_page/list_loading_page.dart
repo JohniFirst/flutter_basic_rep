@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'detail_page.dart';
 
 class ListLoadingPage extends StatefulWidget {
   const ListLoadingPage({super.key});
@@ -40,9 +41,6 @@ class _ListLoadingPageState extends State<ListLoadingPage> {
   }
 
   Future<void> _fetchData(int page) async {
-    // 模拟网络请求延迟
-    await Future.delayed(const Duration(seconds: 1));
-
     // 模拟数据生成
     final startIndex = page * _pageSize;
     final List<String> newItems = List.generate(
@@ -164,7 +162,16 @@ class _ListLoadingPageState extends State<ListLoadingPage> {
                               spacing: 12.0,
                               children: [
                                 ElevatedButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => DetailPage(
+                                          itemName: _items[index],
+                                        ),
+                                      ),
+                                    );
+                                  },
                                   child: Text('按钮1'),
                                 ),
                                 ElevatedButton(
