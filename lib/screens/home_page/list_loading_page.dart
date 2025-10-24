@@ -97,12 +97,6 @@ class _ListLoadingPageState extends State<ListLoadingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('列表加载示例'),
-        titleTextStyle: const TextStyle(fontSize: 18), // 减小字体大小
-        toolbarHeight: 50, // 减小高度
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-      ),
       body: _isLoading && _items.isEmpty
           ? const Center(child: CircularProgressIndicator())
           : RefreshIndicator(

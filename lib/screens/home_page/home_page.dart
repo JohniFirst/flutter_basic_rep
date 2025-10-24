@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../services/auth_service.dart';
 import '../login_screen.dart';
-import 'responsive_design_page.dart';
-import 'shared_element_animation_page.dart';
-import 'form_page.dart';
-import 'list_loading_page.dart';
+import 'examples_collection_page.dart';
 import '../../app_localizations.dart';
 
 class HomePage extends StatefulWidget {
@@ -185,71 +182,24 @@ class _HomePageState extends State<HomePage> {
 
             const SizedBox(height: 40),
 
-            // 功能按钮
-            Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ElevatedButton.icon(
-                  onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const ResponsiveDesignPage(),
-                      ),
-                    );
-                  },
-                  icon: const Icon(Icons.pageview),
-                  label: Text(AppLocalizations.of(context).responsiveDesign),
-                ),
-                const SizedBox(height: 20),
-                ElevatedButton.icon(
-                  onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            const SharedElementAnimationPage(),
-                      ),
-                    );
-                  },
-                  icon: const Icon(Icons.animation),
-                  label: Text(
-                    AppLocalizations.of(context).sharedElementAnimation,
+            // 功能按钮 - 导航到示例集合页面
+            ElevatedButton.icon(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const ExamplesCollectionPage(),
                   ),
+                );
+              },
+              icon: const Icon(Icons.grid_view),
+              label: const Text('查看示例集合'),
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 40,
+                  vertical: 15,
                 ),
-                const SizedBox(height: 20),
-                ElevatedButton.icon(
-                  onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => const FormPage()),
-                    );
-                  },
-                  icon: const Icon(Icons.assignment),
-                  label: const Text('表单示例'),
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 30,
-                      vertical: 12,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 20),
-                ElevatedButton.icon(
-                  onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const ListLoadingPage(),
-                      ),
-                    );
-                  },
-                  icon: const Icon(Icons.list),
-                  label: const Text('列表加载示例'),
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 30,
-                      vertical: 12,
-                    ),
-                  ),
-                ),
-              ],
+                textStyle: const TextStyle(fontSize: 18),
+              ),
             ),
           ],
         ),

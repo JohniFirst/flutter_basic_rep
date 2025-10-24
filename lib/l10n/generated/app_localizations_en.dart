@@ -163,6 +163,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get cacheCleared => 'Cache cleared';
 
   @override
+  String get examplesCollection => 'Examples Collection';
+
+  @override
   String get appName => 'Flutter App';
 
   @override

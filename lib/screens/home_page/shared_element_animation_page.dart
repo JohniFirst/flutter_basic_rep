@@ -7,12 +7,6 @@ class SharedElementAnimationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(AppLocalizations.of(context).sharedElementAnimation),
-        titleTextStyle: const TextStyle(fontSize: 18), // 减小字体大小
-        toolbarHeight: 50, // 减小高度
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(8.0),
         child: Column(

@@ -162,6 +162,9 @@ class AppLocalizationsZh extends AppLocalizations {
   String get cacheCleared => '缓存已清除';
 
   @override
+  String get examplesCollection => '示例集合';
+
+  @override
   String get appName => 'Flutter应用';
 
   @override

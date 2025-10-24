@@ -392,6 +392,12 @@ abstract class AppLocalizations {
   /// **'Cache cleared'**
   String get cacheCleared;
 
+  /// No description provided for @examplesCollection.
+  ///
+  /// In en, this message translates to:
+  /// **'Examples Collection'**
+  String get examplesCollection;
+
   /// No description provided for @appName.
   ///
   /// In en, this message translates to:

@@ -48,6 +48,7 @@
   "cancel": "取消",
   "confirm": "确定",
   "cacheCleared": "缓存已清除",
+  "examplesCollection": "示例集合",
   "appName": "Flutter应用",
   "appVersion": "1.0.0",
   "appDescription": "这是一个使用Flutter开发的示例应用。",

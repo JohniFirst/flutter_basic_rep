@@ -10,59 +10,58 @@ class FormPage extends StatefulWidget {
 
 class _FormPageState extends State<FormPage> {
   final _formKey = GlobalKey<FormState>();
-  
+
   // 文本输入
   String _textInput = ''; // 用于保存姓名输入
   String _passwordInput = ''; // 用于保存密码输入
   String _emailInput = ''; // 用于保存邮箱输入
   String _multilineText = ''; // 用于保存个人简介
-  
+
   // 选择控件
   String? _selectedDropdownValue;
   bool _isChecked = false;
   bool _isSwitched = false;
-  
+
   // 单选按钮组
   String? _selectedRadioValue;
-  
+
   // 滑块和范围滑块
   double _sliderValue = 50.0;
   RangeValues _rangeSliderValues = const RangeValues(20.0, 80.0);
-  
+
   // 日期和时间
   DateTime? _selectedDate;
   TimeOfDay? _selectedTime;
-  
+
   // 颜色选择
   Color _selectedColor = Colors.blue;
-  
+
   // 文件选择（模拟）
   String? _selectedFile;
-  
+
   // 表单提交
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      
+
       // 使用保存的字段值
-      String formData = '表单数据:\n'
-        '姓名: $_textInput\n'
-        '邮箱: $_emailInput\n'
-        '密码长度: ${_passwordInput.length} 位\n'
-        '协议同意: $_isChecked\n'
-        '通知设置: $_isSwitched\n'
-        '性别: $_selectedRadioValue\n'
-        '年龄: ${_sliderValue.round()}\n'
-        '个人简介: $_multilineText';
-      
+      String formData =
+          '表单数据:\n'
+          '姓名: $_textInput\n'
+          '邮箱: $_emailInput\n'
+          '密码长度: ${_passwordInput.length} 位\n'
+          '协议同意: $_isChecked\n'
+          '通知设置: $_isSwitched\n'
+          '性别: $_selectedRadioValue\n'
+          '年龄: ${_sliderValue.round()}\n'
+          '个人简介: $_multilineText';
+
       // 显示提交成功的对话框，包含表单数据
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
           title: const Text('提交成功'),
-          content: SingleChildScrollView(
-            child: Text(formData),
-          ),
+          content: SingleChildScrollView(child: Text(formData)),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
@@ -73,7 +72,7 @@ class _FormPageState extends State<FormPage> {
       );
     }
   }
-  
+
   // 选择日期
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -88,7 +87,7 @@ class _FormPageState extends State<FormPage> {
       });
     }
   }
-  
+
   // 选择时间
   Future<void> _selectTime(BuildContext context) async {
     final TimeOfDay? picked = await showTimePicker(
@@ -101,7 +100,7 @@ class _FormPageState extends State<FormPage> {
       });
     }
   }
-  
+
   // 选择颜色
   void _selectColor() {
     showDialog(
@@ -111,7 +110,14 @@ class _FormPageState extends State<FormPage> {
         content: SingleChildScrollView(
           child: Column(
             children: [
-              for (var color in [Colors.red, Colors.blue, Colors.green, Colors.yellow, Colors.purple, Colors.orange])
+              for (var color in [
+                Colors.red,
+                Colors.blue,
+                Colors.green,
+                Colors.yellow,
+                Colors.purple,
+                Colors.orange,
+              ])
                 GestureDetector(
                   onTap: () {
                     setState(() {
@@ -127,7 +133,9 @@ class _FormPageState extends State<FormPage> {
                       decoration: BoxDecoration(
                         color: color,
                         border: Border.all(
-                          color: _selectedColor == color ? Colors.black : Colors.transparent,
+                          color: _selectedColor == color
+                              ? Colors.black
+                              : Colors.transparent,
                           width: 3,
                         ),
                       ),
@@ -144,12 +152,6 @@ class _FormPageState extends State<FormPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('表单示例页面'),
-        titleTextStyle: const TextStyle(fontSize: 18), // 减小字体大小
-        toolbarHeight: 50, // 减小高度
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20.0),
         child: Form(
@@ -163,9 +165,12 @@ class _FormPageState extends State<FormPage> {
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 20),
-              
+
               // 文本输入
-              const Text('文本输入', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              const Text(
+                '文本输入',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
               TextFormField(
                 decoration: const InputDecoration(
                   labelText: '姓名',
@@ -183,7 +188,7 @@ class _FormPageState extends State<FormPage> {
                 },
               ),
               const SizedBox(height: 16),
-              
+
               // 密码输入
               TextFormField(
                 decoration: const InputDecoration(
@@ -207,7 +212,7 @@ class _FormPageState extends State<FormPage> {
                 },
               ),
               const SizedBox(height: 16),
-              
+
               // 邮箱输入
               TextFormField(
                 decoration: const InputDecoration(
@@ -231,7 +236,7 @@ class _FormPageState extends State<FormPage> {
                 },
               ),
               const SizedBox(height: 16),
-              
+
               // 多行文本输入
               TextFormField(
                 decoration: const InputDecoration(
@@ -245,10 +250,13 @@ class _FormPageState extends State<FormPage> {
                 },
               ),
               const SizedBox(height: 24),
-              
+
               // 选择控件
-              const Text('选择控件', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-              
+              const Text(
+                '选择控件',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+
               // 下拉菜单
               DropdownButtonFormField<String>(
                 decoration: const InputDecoration(
@@ -272,7 +280,7 @@ class _FormPageState extends State<FormPage> {
                 },
               ),
               const SizedBox(height: 16),
-              
+
               // 复选框
               CheckboxListTile(
                 title: const Text('我已阅读并同意用户协议'),
@@ -284,7 +292,7 @@ class _FormPageState extends State<FormPage> {
                 },
               ),
               const SizedBox(height: 16),
-              
+
               // 开关
               SwitchListTile(
                 title: const Text('接收推送通知'),
@@ -296,7 +304,7 @@ class _FormPageState extends State<FormPage> {
                 },
               ),
               const SizedBox(height: 16),
-              
+
               // 单选按钮组
               const Text('性别：', style: TextStyle(fontSize: 16)),
               Row(
@@ -316,7 +324,9 @@ class _FormPageState extends State<FormPage> {
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               border: Border.all(
-                                color: _selectedRadioValue == 'male' ? Colors.blue : Colors.grey,
+                                color: _selectedRadioValue == 'male'
+                                    ? Colors.blue
+                                    : Colors.grey,
                                 width: 2,
                               ),
                             ),
@@ -350,7 +360,9 @@ class _FormPageState extends State<FormPage> {
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               border: Border.all(
-                                color: _selectedRadioValue == 'female' ? Colors.blue : Colors.grey,
+                                color: _selectedRadioValue == 'female'
+                                    ? Colors.blue
+                                    : Colors.grey,
                                 width: 2,
                               ),
                             ),
@@ -372,7 +384,7 @@ class _FormPageState extends State<FormPage> {
                 ],
               ),
               const SizedBox(height: 16),
-              
+
               // 滑块
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -393,7 +405,7 @@ class _FormPageState extends State<FormPage> {
                 ],
               ),
               const SizedBox(height: 16),
-              
+
               // 范围滑块
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -417,28 +429,35 @@ class _FormPageState extends State<FormPage> {
                 ],
               ),
               const SizedBox(height: 24),
-              
+
               // 日期和时间选择
-              const Text('日期和时间', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-              
+              const Text(
+                '日期和时间',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+
               // 日期选择器
               ElevatedButton(
                 onPressed: () => _selectDate(context),
-                child: Text(_selectedDate == null 
-                  ? '选择日期' 
-                  : DateFormat('yyyy-MM-dd').format(_selectedDate!)),
+                child: Text(
+                  _selectedDate == null
+                      ? '选择日期'
+                      : DateFormat('yyyy-MM-dd').format(_selectedDate!),
+                ),
               ),
               const SizedBox(height: 16),
-              
+
               // 时间选择器
               ElevatedButton(
                 onPressed: () => _selectTime(context),
-                child: Text(_selectedTime == null 
-                  ? '选择时间' 
-                  : _selectedTime!.format(context)),
+                child: Text(
+                  _selectedTime == null
+                      ? '选择时间'
+                      : _selectedTime!.format(context),
+                ),
               ),
               const SizedBox(height: 16),
-              
+
               // 颜色选择
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -454,7 +473,7 @@ class _FormPageState extends State<FormPage> {
                 ],
               ),
               const SizedBox(height: 16),
-              
+
               // 文件选择（模拟）
               ElevatedButton(
                 onPressed: () {
@@ -463,18 +482,21 @@ class _FormPageState extends State<FormPage> {
                     _selectedFile = 'sample_file.pdf';
                   });
                 },
-                child: _selectedFile == null 
-                  ? const Text('选择文件') 
-                  : Text('已选择：$_selectedFile'),
+                child: _selectedFile == null
+                    ? const Text('选择文件')
+                    : Text('已选择：$_selectedFile'),
               ),
               const SizedBox(height: 32),
-              
+
               // 提交按钮
               Center(
                 child: ElevatedButton(
                   onPressed: _submitForm,
                   style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 40,
+                      vertical: 15,
+                    ),
                     textStyle: const TextStyle(fontSize: 18),
                   ),
                   child: const Text('提交表单'),
