@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'dart:async';
-import 'dart:io';
 import 'package:intl/intl.dart';
-import 'package:http/http.dart' as http;
 import 'project_detail_page.dart';
+import '../../services/http_service.dart';
 
 class ComplexListPage extends StatefulWidget {
   const ComplexListPage({super.key});
@@ -259,6 +258,8 @@ class _ComplexListPageState extends State<ComplexListPage> {
   int _currentPage = 0;
   final int _pageSize = 20;
   final ScrollController _scrollController = ScrollController();
+  // 使用统一的HttpService
+  final HttpService _httpService = HttpService();
   // 缓存格式化器以避免重复创建
   final DateFormat _dateFormat = DateFormat('yyyy-MM-dd');
 
@@ -287,25 +288,53 @@ class _ComplexListPageState extends State<ComplexListPage> {
 
   Future<void> _fetchData(int page) async {
     try {
-      // 调用真实API - 适配Android设备
-      // 对于Android模拟器，使用10.0.2.2访问主机上的localhost
-      // 对于真机测试，需要使用计算机的实际IP地址
-      final apiUrl =
-          'http://192.168.11.94:3001/complex-list?page=$page&pageSize=$_pageSize'; // 添加分页参数
-      final response = await http.get(Uri.parse(apiUrl));
+      if (kDebugMode) {
+        print('开始获取数据，页码: $page, 每页数量: $_pageSize');
+      }
+      
+      // 使用统一的HttpService发送请求
+      final response = await _httpService.get(
+        '/complex-list',
+        queryParameters: {
+          'page': page.toString(),
+          'pageSize': _pageSize.toString(),
+        },
+      );
 
-      if (response.statusCode == 200) {
-        final data = jsonDecode(response.body);
-        final List<dynamic> projectsList = data['data'] ?? [];
+      if (kDebugMode) {
+        print('请求响应: $response');
+      }
+
+      if (response['success']) {
+        final data = response['data'];
+        if (kDebugMode) {
+          print('响应数据类型: ${data.runtimeType}');
+          print('响应数据: $data');
+        }
+        
+        // 确保数据是列表类型
+        final List<dynamic> projectsList = data is List ? data : (data is Map && data.containsKey('data') ? data['data'] : []);
+        
+        if (kDebugMode) {
+          print('项目列表长度: ${projectsList.length}');
+        }
 
         setState(() {
           if (page == 0) {
             _projectItems.clear();
             _currentPage = 0;
           }
-          _projectItems.addAll(
-            projectsList.map((item) => ProjectItem.fromJson(item)).toList(),
-          );
+          
+          if (projectsList.isNotEmpty) {
+            _projectItems.addAll(
+              projectsList.map((item) => ProjectItem.fromJson(item)).toList(),
+            );
+            
+            if (kDebugMode) {
+              print('添加后项目总数: ${_projectItems.length}');
+            }
+          }
+          
           _currentPage = page;
 
           // 检查是否还有更多数据
@@ -317,16 +346,22 @@ class _ComplexListPageState extends State<ComplexListPage> {
           _isRefreshing = false;
         });
       } else {
-        throw Exception('服务器错误: ${response.statusCode}');
+        final errorMessage = response['message'] ?? '请求失败';
+        if (kDebugMode) {
+          print('请求失败: $errorMessage');
+        }
+        throw Exception(errorMessage);
       }
     } catch (error) {
+      if (kDebugMode) {
+        print('异常: $error');
+      }
       setState(() {
         _isLoading = false;
         _isRefreshing = false;
       });
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text('加载数据失败: $error')));
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('加载数据失败: $error')));
     }
   }
 

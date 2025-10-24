@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
+import 'package:flutter/foundation.dart';
 import '../../services/utility_services.dart';
+import '../../services/http_service.dart';
 import 'package:intl/intl.dart';
 import 'complex_list_page.dart'; // 导入数据模型
 
@@ -23,6 +23,8 @@ class _ProjectDetailPageState extends State<ProjectDetailPage> {
   ProjectItem? _project;
   bool _isLoading = false;
   String? _error;
+  // 使用统一的HttpService
+  final HttpService _httpService = HttpService();
   // 缓存DateFormat实例避免重复创建
   final DateFormat _dateFormat = DateFormat('yyyy-MM-dd HH:mm:ss');
 
@@ -43,16 +45,29 @@ class _ProjectDetailPageState extends State<ProjectDetailPage> {
     });
 
     try {
-      // 调用真实API - 适配Android设备
-      // 对于Android模拟器，使用10.0.2.2访问主机上的localhost
-      // 对于真机测试，需要使用计算机的实际IP地址
-      final apiUrl = 'http://192.168.11.94:3001/complex-list'; // 模拟器地址
+      if (kDebugMode) {
+        print('开始获取项目详情，ID: ${widget.projectId}');
+      }
+      
+      // 使用统一的HttpService发送请求
+      final response = await _httpService.get('/complex-list');
 
-      final response = await http.get(Uri.parse(apiUrl));
+      if (kDebugMode) {
+        print('项目详情请求响应: $response');
+      }
 
-      if (response.statusCode == 200) {
-        final data = jsonDecode(response.body);
-        final List<dynamic> projectsList = data['data'];
+      if (response['success']) {
+        final data = response['data'];
+        if (kDebugMode) {
+          print('项目详情响应数据类型: ${data.runtimeType}');
+        }
+        
+        // 确保数据是列表类型
+        final List<dynamic> projectsList = data is List ? data : (data is Map && data.containsKey('data') ? data['data'] : []);
+        
+        if (kDebugMode) {
+          print('项目列表长度: ${projectsList.length}');
+        }
 
         // 过滤出匹配ID的项目
         final projectData = projectsList.firstWhere(
@@ -61,17 +76,31 @@ class _ProjectDetailPageState extends State<ProjectDetailPage> {
         );
 
         if (projectData != null) {
+          if (kDebugMode) {
+            print('找到项目: ${projectData['title']}');
+          }
           setState(() {
             _project = ProjectItem.fromJson(projectData);
             _isLoading = false;
           });
         } else {
-          throw Exception('项目不存在');
+          final errorMsg = '项目不存在，ID: ${widget.projectId}';
+          if (kDebugMode) {
+            print(errorMsg);
+          }
+          throw Exception(errorMsg);
         }
       } else {
-        throw Exception('服务器错误: ${response.statusCode}');
+        final errorMessage = response['message'] ?? '请求失败';
+        if (kDebugMode) {
+          print('项目详情请求失败: $errorMessage');
+        }
+        throw Exception(errorMessage);
       }
     } catch (error) {
+      if (kDebugMode) {
+        print('项目详情获取异常: $error');
+      }
       setState(() {
         _isLoading = false;
         _error = error.toString();
