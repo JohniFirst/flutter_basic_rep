@@ -2,6 +2,10 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <!-- 电话权限 - 用于启动电话应用 -->
     <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <!-- 相机权限 - 用于拍照功能 -->
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-feature android:name="android.hardware.camera" android:required="false"/>
+    <uses-feature android:name="android.hardware.camera.autofocus" android:required="false"/>
 
     <application
         android:label="flutter_application_1"

@@ -1,0 +1,42 @@
+import 'package:flutter/material.dart';
+import 'camera_example_page.dart';
+
+class DeviceApiExamplePage extends StatelessWidget {
+  const DeviceApiExamplePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('设备API示例'),
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+      ),
+      body: ListView.builder(
+        padding: const EdgeInsets.all(16.0),
+        itemCount: 1,
+        itemBuilder: (context, index) {
+          return Card(
+            elevation: 2,
+            margin: const EdgeInsets.symmetric(vertical: 8.0),
+            child: ListTile(
+              leading: const Icon(Icons.camera_alt, size: 28, color: Colors.blue),
+              title: const Text(
+                '系统相机',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+              ),
+              subtitle: const Text('调用设备相机拍摄照片'),
+              trailing: const Icon(Icons.arrow_forward_ios),
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const CameraExamplePage(),
+                  ),
+                );
+              },
+            ),
+          );
+        },
+      ),
+    );
+  }
+}

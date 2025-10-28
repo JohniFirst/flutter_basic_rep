@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../services/auth_service.dart';
 import 'examples_collection_page.dart';
+import 'device_api_example_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -182,6 +183,27 @@ class _HomePageState extends State<HomePage> {
               },
               icon: const Icon(Icons.grid_view),
               label: const Text('查看示例集合'),
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 40,
+                  vertical: 15,
+                ),
+                textStyle: const TextStyle(fontSize: 18),
+              ),
+            ),
+            const SizedBox(height: 20),
+            
+            // 新按钮 - 导航到设备API示例页面
+            ElevatedButton.icon(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const DeviceApiExamplePage(),
+                  ),
+                );
+              },
+              icon: const Icon(Icons.devices),
+              label: const Text('设备API示例'),
               style: ElevatedButton.styleFrom(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 40,

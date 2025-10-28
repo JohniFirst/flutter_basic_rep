@@ -45,6 +45,8 @@ dependencies:
 #  本地存储
   shared_preferences: ^2.2.3
   http: ^1.5.0
+#  图片选择（相机调用）
+  image_picker: ^1.1.1
 
 dev_dependencies:
   flutter_test:
