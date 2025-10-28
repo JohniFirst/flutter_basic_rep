@@ -48,5 +48,8 @@
 	<!-- 相机权限描述 -->
 	<key>NSCameraUsageDescription</key>
 	<string>本应用需要访问您的相机以拍摄照片</string>
+	<!-- 通知权限描述 -->
+	<key>NSUserNotificationUsageDescription</key>
+	<string>本应用需要发送通知以提供重要信息</string>
 </dict>
 </plist>
