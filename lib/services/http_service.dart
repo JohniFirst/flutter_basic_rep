@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 /// 网络请求服务类，提供统一的HTTP请求功能
 class HttpService {
   /// 基础URL
-  static const String baseUrl = 'http://192.168.11.94:3001';
+  static const String baseUrl = 'http://192.168.245.184:3001';
   
   /// 请求超时时间（毫秒）
   static const int timeoutMs = 30000;

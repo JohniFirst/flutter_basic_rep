@@ -187,7 +187,7 @@ class _ProjectDetailPageState extends State<ProjectDetailPage> {
                         decoration: BoxDecoration(
                           color: _getStatusColor(
                             _project!.status,
-                          ).withOpacity(0.1),
+                          ).withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(6),
                         ),
                         child: Text(
@@ -212,7 +212,7 @@ class _ProjectDetailPageState extends State<ProjectDetailPage> {
                       decoration: BoxDecoration(
                         color: _getPriorityColor(
                           _project!.priority,
-                        ).withOpacity(0.1),
+                        ).withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(4),
                       ),
                       child: Text(

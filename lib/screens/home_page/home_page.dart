@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../../services/auth_service.dart';
-import '../login_screen.dart';
 import 'examples_collection_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -31,15 +30,6 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       _counter++;
     });
-  }
-
-  Future<void> _logout() async {
-    await AuthService.logout();
-    if (mounted) {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const LoginScreen()),
-      );
-    }
   }
 
   void _showBottomSheetForm() {

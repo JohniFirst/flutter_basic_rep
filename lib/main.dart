@@ -28,7 +28,7 @@ void main() {
 void _startLocalServer() async {
   try {
     final server = await HttpServer.bind('localhost', 9975);
-    print('本地服务器已启动，监听端口: 9975');
+    // print('本地服务器已启动，监听端口: 9975');
 
     // 使用Isolate或更轻量的方式处理请求，避免阻塞主UI线程
     // 仅在调试模式下运行
@@ -36,7 +36,7 @@ void _startLocalServer() async {
       _handleServerRequest(request);
     });
   } catch (e) {
-    print('启动本地服务器失败: $e');
+    // print('启动本地服务器失败: $e');
   }
 }
 
