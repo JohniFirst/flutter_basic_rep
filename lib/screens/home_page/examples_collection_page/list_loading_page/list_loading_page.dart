@@ -166,9 +166,8 @@ class _ListLoadingPageState extends State<ListLoadingPage> {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => DetailPage(
-                                          itemName: _items[index],
-                                        ),
+                                        builder: (context) =>
+                                            DetailPage(itemName: _items[index]),
                                       ),
                                     );
                                   },

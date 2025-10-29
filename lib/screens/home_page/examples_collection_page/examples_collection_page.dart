@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'responsive_design_page.dart';
 import 'shared_element_animation_page.dart';
 import 'form_page.dart';
-import 'list_loading_page.dart';
-import '../../app_localizations.dart';
+import 'list_loading_page/list_loading_page.dart';
+import '../../../app_localizations.dart';
 
 class ExamplesCollectionPage extends StatefulWidget {
   const ExamplesCollectionPage({super.key});

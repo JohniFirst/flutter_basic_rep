@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../services/auth_service.dart';
-import 'examples_collection_page.dart';
+import 'examples_collection_page/examples_collection_page.dart';
 import 'device_api_example/device_api_example_page.dart';
 
 class HomePage extends StatefulWidget {
