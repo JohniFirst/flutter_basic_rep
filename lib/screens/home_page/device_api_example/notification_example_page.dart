@@ -34,11 +34,19 @@ class _NotificationExamplePageState extends State<NotificationExamplePage> {
       requestSoundPermission: true,
     );
 
-    final InitializationSettings initializationSettings =
-        InitializationSettings(
+    // Windows初始化设置
+    final WindowsInitializationSettings initializationSettingsWindows = 
+        WindowsInitializationSettings(
+      appName: 'Flutter Application',
+      appUserModelId: 'com.example.flutter_application_1',
+      guid: 'b17e7b4c-96af-416f-9e0a-4c57b507b45a',
+    );
+
+    final InitializationSettings initializationSettings = InitializationSettings(
       android: initializationSettingsAndroid,
       iOS: initializationSettingsIOS,
       macOS: initializationSettingsIOS,
+      windows: initializationSettingsWindows,
     );
 
     await _flutterLocalNotificationsPlugin.initialize(initializationSettings);
@@ -75,12 +83,17 @@ class _NotificationExamplePageState extends State<NotificationExamplePage> {
           _permissionGranted = status.isGranted;
         });
       }
-    } else {
-      // 其他平台默认授予权限
-      setState(() {
-        _permissionGranted = true;
-      });
-    }
+    } else if (Platform.isWindows) {
+        // Windows平台通知不需要额外权限
+        setState(() {
+          _permissionGranted = true;
+        });
+      } else {
+        // 其他平台默认授予权限
+        setState(() {
+          _permissionGranted = true;
+        });
+      }
   }
 
   Future<void> _sendNotification() async {
@@ -110,12 +123,16 @@ class _NotificationExamplePageState extends State<NotificationExamplePage> {
         showWhen: true,
       );
 
-      const DarwinNotificationDetails iOSPlatformChannelSpecifics =
-          DarwinNotificationDetails();
+      const DarwinNotificationDetails iOSPlatformChannelSpecifics = DarwinNotificationDetails();
+
+      // Windows通知详情
+      const WindowsNotificationDetails windowsPlatformChannelSpecifics = 
+          WindowsNotificationDetails();
 
       const NotificationDetails platformChannelSpecifics = NotificationDetails(
         android: androidPlatformChannelSpecifics,
         iOS: iOSPlatformChannelSpecifics,
+        windows: windowsPlatformChannelSpecifics,
       );
 
       await _flutterLocalNotificationsPlugin.show(
