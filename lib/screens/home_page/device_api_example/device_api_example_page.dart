@@ -12,54 +12,46 @@ class DeviceApiExamplePage extends StatelessWidget {
         title: const Text('设备API示例'),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
-      body: ListView.builder(
-        padding: const EdgeInsets.all(16.0),
-        itemCount: 2,
-        itemBuilder: (context, index) {
-          if (index == 0) {
-            return Card(
-              elevation: 2,
-              margin: const EdgeInsets.symmetric(vertical: 8.0),
-              child: ListTile(
-                leading: const Icon(Icons.camera_alt, size: 28, color: Colors.blue),
-                title: const Text(
-                  '系统相机',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+      body: Column(
+        spacing: 8.0,
+        children: [
+          ListTile(
+            leading: const Icon(Icons.camera_alt, size: 28, color: Colors.blue),
+            title: const Text(
+              '系统相机',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+            ),
+            subtitle: const Text('调用设备相机拍摄照片'),
+            trailing: const Icon(Icons.arrow_forward_ios),
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const CameraExamplePage(),
                 ),
-                subtitle: const Text('调用设备相机拍摄照片'),
-                trailing: const Icon(Icons.arrow_forward_ios),
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => const CameraExamplePage(),
-                    ),
-                  );
-                },
-              ),
-            );
-          } else {
-            return Card(
-              elevation: 2,
-              margin: const EdgeInsets.symmetric(vertical: 8.0),
-              child: ListTile(
-                leading: const Icon(Icons.notifications, size: 28, color: Colors.orange),
-                title: const Text(
-                  '系统通知',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+              );
+            },
+          ),
+          ListTile(
+            leading: const Icon(
+              Icons.notifications,
+              size: 28,
+              color: Colors.orange,
+            ),
+            title: const Text(
+              '系统通知',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+            ),
+            subtitle: const Text('发送系统通知'),
+            trailing: const Icon(Icons.arrow_forward_ios),
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const NotificationExamplePage(),
                 ),
-                subtitle: const Text('发送系统通知'),
-                trailing: const Icon(Icons.arrow_forward_ios),
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => const NotificationExamplePage(),
-                    ),
-                  );
-                },
-              ),
-            );
-          }
-        },
+              );
+            },
+          ),
+        ],
       ),
     );
   }
