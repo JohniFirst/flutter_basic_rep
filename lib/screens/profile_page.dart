@@ -31,28 +31,28 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Future<void> _logout() async {
     // 显示二次确认对话框
-    final shouldLogout = await showDialog<bool>(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: const Text('确认退出'),
-            content: const Text('确定要退出登录吗？'),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context, false),
-              child: Text(AppLocalizations.of(context).cancel),
-            ),
-            TextButton(
-              onPressed: () => Navigator.pop(context, true),
-              style: TextButton.styleFrom(
-                foregroundColor: Colors.red,
-              ),
-              child: Text(AppLocalizations.of(context).confirm),
-            ),
-          ],
-        );
-      },
-    ) ?? false; // 如果对话框被关闭，默认为不退出
+    final shouldLogout =
+        await showDialog<bool>(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: const Text('确认退出'),
+              content: const Text('确定要退出登录吗？'),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(context, false),
+                  child: Text(AppLocalizations.of(context).cancel),
+                ),
+                TextButton(
+                  onPressed: () => Navigator.pop(context, true),
+                  style: TextButton.styleFrom(foregroundColor: Colors.red),
+                  child: Text(AppLocalizations.of(context).confirm),
+                ),
+              ],
+            );
+          },
+        ) ??
+        false; // 如果对话框被关闭，默认为不退出
 
     // 只有用户确认后才执行退出登录
     if (shouldLogout) {
