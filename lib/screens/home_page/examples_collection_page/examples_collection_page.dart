@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'charts_example.dart';
 import 'responsive_design_page.dart';
 import 'shared_element_animation_page.dart';
 import 'form_page.dart';
@@ -44,7 +45,7 @@ class _ExamplesCollectionPageState extends State<ExamplesCollectionPage>
             Tab(icon: Icon(Icons.assignment), text: '表单示例'),
             Tab(icon: Icon(Icons.pageview), text: '响应式设计'),
             Tab(icon: Icon(Icons.animation), text: '共享元素动画'),
-            Tab(icon: Icon(Icons.animation), text: '响应式设计'),
+            Tab(icon: Icon(Icons.animation), text: '进程图示例'),
             Tab(icon: Icon(Icons.animation), text: '共享元素动画'),
             Tab(icon: Icon(Icons.animation), text: '响应式设计'),
           ],
@@ -57,7 +58,7 @@ class _ExamplesCollectionPageState extends State<ExamplesCollectionPage>
           FormPage(),
           ResponsiveDesignPage(),
           SharedElementAnimationPage(),
-          ResponsiveDesignPage(),
+          ChartsExample(),
           SharedElementAnimationPage(),
           ResponsiveDesignPage(),
         ],
