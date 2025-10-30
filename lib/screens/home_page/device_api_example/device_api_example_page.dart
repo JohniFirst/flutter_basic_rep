@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'camera_example_page.dart';
 import 'notification_example_page.dart';
+import 'vibration_example_page.dart';
 
 class DeviceApiExamplePage extends StatelessWidget {
   const DeviceApiExamplePage({super.key});
@@ -47,6 +48,26 @@ class DeviceApiExamplePage extends StatelessWidget {
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) => const NotificationExamplePage(),
+                ),
+              );
+            },
+          ),
+          ListTile(
+            leading: const Icon(
+              Icons.vibration,
+              size: 28,
+              color: Colors.purple,
+            ),
+            title: const Text(
+              '设备震动',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+            ),
+            subtitle: const Text('进入震动模式示例页面'),
+            trailing: const Icon(Icons.arrow_forward_ios),
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const VibrationExamplePage(),
                 ),
               );
             },

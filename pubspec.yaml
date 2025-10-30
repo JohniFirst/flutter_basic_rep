@@ -2,7 +2,7 @@ name: flutter_application_1
 description: "A new Flutter project."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -34,23 +34,25 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   intl: ^0.20.2
-#  基础数据类型的加密存储
+  #  基础数据类型的加密存储
   flutter_secure_storage: ^9.2.4
-#  轻量级的 NoSQL 数据库，纯 Dart 实现，无需原生依赖
+  #  轻量级的 NoSQL 数据库，纯 Dart 实现，无需原生依赖
   hive: ^2.2.3
-#  跳转应用
+  #  跳转应用
   url_launcher: ^6.3.2
-#  状态管理
+  #  状态管理
   provider: ^6.1.2
-#  本地存储
+  #  本地存储
   shared_preferences: ^2.2.3
   http: ^1.5.0
-#  图片选择（相机调用）
+  #  图片选择（相机调用）
   image_picker: ^1.2.0
-#  本地通知
+  #  本地通知
   flutter_local_notifications: ^19.5.0
-#  权限处理
+  #  权限处理
   permission_handler: ^12.0.1
+  # 震动控制（可用于自定义持续时间与模式）
+  vibration: ^3.1.4
 
 dev_dependencies:
   flutter_test:
@@ -69,7 +71,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-   - images/
+    - images/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
