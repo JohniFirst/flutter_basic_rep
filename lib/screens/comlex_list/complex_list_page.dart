@@ -253,7 +253,7 @@ class RelatedItem {
 class _ComplexListPageState extends State<ComplexListPage> {
   final List<ProjectItem> _projectItems = [];
   bool _isLoading = true;
-  bool _isRefreshing = false;
+
   bool _hasMore = true;
   int _currentPage = 0;
   final int _pageSize = 20;
@@ -343,7 +343,7 @@ class _ComplexListPageState extends State<ComplexListPage> {
           }
 
           _isLoading = false;
-          _isRefreshing = false;
+    
         });
       } else {
         final errorMessage = response['message'] ?? '请求失败';
@@ -358,16 +358,18 @@ class _ComplexListPageState extends State<ComplexListPage> {
       }
       setState(() {
         _isLoading = false;
-        _isRefreshing = false;
+  
       });
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('加载数据失败: $error')));
+      if (mounted) {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text('加载数据失败: $error')));
+      }
     }
   }
 
   Future<void> _onRefresh() async {
     setState(() {
-      _isRefreshing = true;
+
       _hasMore = true;
     });
     await _fetchData(0);

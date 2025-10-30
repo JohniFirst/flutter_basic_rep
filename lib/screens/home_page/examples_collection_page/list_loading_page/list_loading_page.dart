@@ -15,7 +15,7 @@ class _ListLoadingPageState extends State<ListLoadingPage> {
   int _currentPage = 0;
   final int _pageSize = 20;
   final ScrollController _scrollController = ScrollController();
-  bool _isRefreshing = false;
+
 
   @override
   void initState() {
@@ -64,13 +64,7 @@ class _ListLoadingPageState extends State<ListLoadingPage> {
   }
 
   Future<void> _onRefresh() async {
-    setState(() {
-      _isRefreshing = true;
-    });
     await _fetchData(0);
-    setState(() {
-      _isRefreshing = false;
-    });
   }
 
   void _onScroll() {
