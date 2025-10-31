@@ -1,7 +1,12 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'dart:io' show Platform;
+
 import 'camera_example_page.dart';
 import 'notification_example_page.dart';
 import 'vibration_example_page.dart';
+import 'clipboard_example_page.dart';
+import 'windows_explorer_page.dart';
 
 class DeviceApiExamplePage extends StatelessWidget {
   const DeviceApiExamplePage({super.key});
@@ -32,6 +37,52 @@ class DeviceApiExamplePage extends StatelessWidget {
               );
             },
           ),
+          const Divider(),
+          // 剪贴板示例（大多数平台可用）
+          ListTile(
+            leading: const Icon(
+              Icons.content_paste,
+              size: 28,
+              color: Colors.teal,
+            ),
+            title: const Text(
+              '系统剪贴板',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+            ),
+            subtitle: const Text('复制/粘贴示例（适用于移动与桌面）'),
+            trailing: const Icon(Icons.arrow_forward_ios),
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const ClipboardExamplePage(),
+                ),
+              );
+            },
+          ),
+          // Windows 专有入口，仅在 Windows 平台显示
+          if (!kIsWeb && Platform.isWindows) ...[
+            const Divider(),
+            ListTile(
+              leading: const Icon(
+                Icons.desktop_windows,
+                size: 28,
+                color: Colors.green,
+              ),
+              title: const Text(
+                'Windows 专用能力',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+              ),
+              subtitle: const Text('调用 Windows 特有的能力（示例：打开 文档 文件夹）'),
+              trailing: const Icon(Icons.arrow_forward_ios),
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const WindowsExplorerPage(),
+                  ),
+                );
+              },
+            ),
+          ],
           ListTile(
             leading: const Icon(
               Icons.notifications,
