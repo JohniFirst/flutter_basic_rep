@@ -7,6 +7,7 @@ import 'notification_example_page.dart';
 import 'vibration_example_page.dart';
 import 'clipboard_example_page.dart';
 import 'windows_explorer_page.dart';
+import 'registry_check_page.dart';
 
 class DeviceApiExamplePage extends StatelessWidget {
   const DeviceApiExamplePage({super.key});
@@ -78,6 +79,28 @@ class DeviceApiExamplePage extends StatelessWidget {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) => const WindowsExplorerPage(),
+                  ),
+                );
+              },
+            ),
+            // 新增：读取注册表入口，仅 Windows 可见
+            const Divider(),
+            ListTile(
+              leading: const Icon(
+                Icons.folder_shared,
+                size: 28,
+                color: Colors.indigo,
+              ),
+              title: const Text(
+                '读取注册表',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+              ),
+              subtitle: const Text('检查本机注册表中是否包含 VS Code 的安装信息'),
+              trailing: const Icon(Icons.arrow_forward_ios),
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const RegistryCheckPage(),
                   ),
                 );
               },
