@@ -18,196 +18,244 @@ class _SettingsPageState extends State<SettingsPage> {
     return Consumer<ThemeService>(
       builder: (context, themeService, child) {
         return Scaffold(
-      appBar: AppBar(
-        title: Text(AppLocalizations.of(context).settings),
-        titleTextStyle: const TextStyle(fontSize: 18), // 减小字体大小
-        toolbarHeight: 50, // 减小高度
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-      ),
-      body: ListView(
-        padding: const EdgeInsets.all(8.0),
-        children: [
-          // 通知设置
-          Card(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Text(
-                    AppLocalizations.of(context).notifications,
-                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                ),
-                SwitchListTile(
-                  title: Text(AppLocalizations.of(context).enableNotifications),
-                  subtitle: Text(AppLocalizations.of(context).receiveNotifications),
-                  value: _notificationsEnabled,
-                  onChanged: (value) {
-                    setState(() {
-                      _notificationsEnabled = value;
-                    });
-                  },
-                ),
-              ],
-            ),
+          appBar: AppBar(
+            title: Text(AppLocalizations.of(context).settings),
+            titleTextStyle: const TextStyle(fontSize: 18), // 减小字体大小
+            toolbarHeight: 50, // 减小高度
+            backgroundColor: Theme.of(context).colorScheme.inversePrimary,
           ),
-
-          const SizedBox(height: 16),
-
-          // 外观设置
-          Card(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Text(
-                    AppLocalizations.of(context).appearance,
-                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                ),
-                SwitchListTile(
-                  title: Text(AppLocalizations.of(context).followSystemTheme),
-                  subtitle: Text(AppLocalizations.of(context).autoSwitchTheme),
-                  value: themeService.followSystemTheme,
-                  onChanged: (value) {
-                    themeService.setFollowSystemTheme(value);
-                  },
-                ),
-                SwitchListTile(
-                  title: Text(AppLocalizations.of(context).darkMode),
-                  subtitle: Text(AppLocalizations.of(context).switchToDarkTheme),
-                  value: themeService.isDarkMode,
-                  onChanged: themeService.followSystemTheme ? null : (value) {
-                    themeService.toggleDarkMode();
-                  },
-                ),
-                ListTile(
-                  title: Text(AppLocalizations.of(context).fontSize),
-                  subtitle: Text('${themeService.fontSize.toInt()}px'),
-                  trailing: SizedBox(
-                    width: 200,
-                    child: Slider(
-                      value: themeService.fontSize,
-                      min: 12.0,
-                      max: 24.0,
-                      divisions: 12,
+          body: ListView(
+            padding: const EdgeInsets.all(8.0),
+            children: [
+              // 通知设置
+              Card(
+                elevation: 0,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Text(
+                        AppLocalizations.of(context).notifications,
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    SwitchListTile(
+                      title: Text(
+                        AppLocalizations.of(context).enableNotifications,
+                      ),
+                      subtitle: Text(
+                        AppLocalizations.of(context).receiveNotifications,
+                      ),
+                      value: _notificationsEnabled,
                       onChanged: (value) {
-                        themeService.setFontSize(value);
+                        setState(() {
+                          _notificationsEnabled = value;
+                        });
                       },
                     ),
-                  ),
+                  ],
                 ),
-                SwitchListTile(
-                  title: Text(AppLocalizations.of(context).followSystemLanguage),
-                  subtitle: Text(AppLocalizations.of(context).autoSwitchLanguage),
-                  value: themeService.followSystemLanguage,
-                  onChanged: (value) {
-                    themeService.setFollowSystemLanguage(value);
-                  },
+              ),
+
+              const SizedBox(height: 16),
+
+              // 外观设置
+              Card(
+                elevation: 0,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Text(
+                        AppLocalizations.of(context).appearance,
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    SwitchListTile(
+                      title: Text(
+                        AppLocalizations.of(context).followSystemTheme,
+                      ),
+                      subtitle: Text(
+                        AppLocalizations.of(context).autoSwitchTheme,
+                      ),
+                      value: themeService.followSystemTheme,
+                      onChanged: (value) {
+                        themeService.setFollowSystemTheme(value);
+                      },
+                    ),
+                    SwitchListTile(
+                      title: Text(AppLocalizations.of(context).darkMode),
+                      subtitle: Text(
+                        AppLocalizations.of(context).switchToDarkTheme,
+                      ),
+                      value: themeService.isDarkMode,
+                      onChanged: themeService.followSystemTheme
+                          ? null
+                          : (value) {
+                              themeService.toggleDarkMode();
+                            },
+                    ),
+                    ListTile(
+                      title: Text(AppLocalizations.of(context).fontSize),
+                      subtitle: Text('${themeService.fontSize.toInt()}px'),
+                      trailing: SizedBox(
+                        width: 200,
+                        child: Slider(
+                          value: themeService.fontSize,
+                          min: 12.0,
+                          max: 24.0,
+                          divisions: 12,
+                          onChanged: (value) {
+                            themeService.setFontSize(value);
+                          },
+                        ),
+                      ),
+                    ),
+                    SwitchListTile(
+                      title: Text(
+                        AppLocalizations.of(context).followSystemLanguage,
+                      ),
+                      subtitle: Text(
+                        AppLocalizations.of(context).autoSwitchLanguage,
+                      ),
+                      value: themeService.followSystemLanguage,
+                      onChanged: (value) {
+                        themeService.setFollowSystemLanguage(value);
+                      },
+                    ),
+                    ListTile(
+                      title: Text(AppLocalizations.of(context).language),
+                      subtitle: Text(
+                        themeService.language == 'zh'
+                            ? AppLocalizations.of(context).chinese
+                            : AppLocalizations.of(context).english,
+                      ),
+                      trailing: const Icon(Icons.chevron_right),
+                      onTap: themeService.followSystemLanguage
+                          ? null
+                          : () {
+                              _showLanguageDialog(themeService);
+                            },
+                    ),
+                  ],
                 ),
-                ListTile(
-                  title: Text(AppLocalizations.of(context).language),
-                  subtitle: Text(themeService.language == 'zh' 
-                      ? AppLocalizations.of(context).chinese 
-                      : AppLocalizations.of(context).english),
-                  trailing: const Icon(Icons.chevron_right),
-                  onTap: themeService.followSystemLanguage ? null : () {
-                    _showLanguageDialog(themeService);
-                  },
+              ),
+
+              const SizedBox(height: 16),
+
+              // 应用设置
+              Card(
+                elevation: 0,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Text(
+                        AppLocalizations.of(context).application,
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.info),
+                      title: Text(AppLocalizations.of(context).aboutApp),
+                      trailing: const Icon(Icons.chevron_right),
+                      onTap: () {
+                        _showAboutDialog();
+                      },
+                    ),
+                    const Divider(height: 1),
+                    ListTile(
+                      leading: const Icon(Icons.update),
+                      title: Text(AppLocalizations.of(context).checkUpdates),
+                      trailing: const Icon(Icons.chevron_right),
+                      onTap: () {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              AppLocalizations.of(context).latestVersion,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                    const Divider(height: 1),
+                    ListTile(
+                      leading: const Icon(Icons.clear_all),
+                      title: Text(AppLocalizations.of(context).clearCache),
+                      trailing: const Icon(Icons.chevron_right),
+                      onTap: () {
+                        _showClearCacheDialog();
+                      },
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+
+              const SizedBox(height: 16),
+
+              // 其他设置
+              Card(
+                elevation: 0,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Text(
+                        AppLocalizations.of(context).other,
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.privacy_tip),
+                      title: Text(AppLocalizations.of(context).privacyPolicy),
+                      trailing: const Icon(Icons.chevron_right),
+                      onTap: () {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              AppLocalizations.of(context).privacyPolicy,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                    const Divider(height: 1),
+                    ListTile(
+                      leading: const Icon(Icons.description),
+                      title: Text(AppLocalizations.of(context).userAgreement),
+                      trailing: const Icon(Icons.chevron_right),
+                      onTap: () {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              AppLocalizations.of(context).userAgreement,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
-
-          const SizedBox(height: 16),
-
-          // 应用设置
-          Card(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Text(
-                    AppLocalizations.of(context).application,
-                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                ),
-                ListTile(
-                  leading: const Icon(Icons.info),
-                  title: Text(AppLocalizations.of(context).aboutApp),
-                  trailing: const Icon(Icons.chevron_right),
-                  onTap: () {
-                    _showAboutDialog();
-                  },
-                ),
-                const Divider(height: 1),
-                ListTile(
-                  leading: const Icon(Icons.update),
-                  title: Text(AppLocalizations.of(context).checkUpdates),
-                  trailing: const Icon(Icons.chevron_right),
-                  onTap: () {
-                    ScaffoldMessenger.of(
-                      context,
-                    ).showSnackBar(SnackBar(content: Text(AppLocalizations.of(context).latestVersion)));
-                  },
-                ),
-                const Divider(height: 1),
-                ListTile(
-                  leading: const Icon(Icons.clear_all),
-                  title: Text(AppLocalizations.of(context).clearCache),
-                  trailing: const Icon(Icons.chevron_right),
-                  onTap: () {
-                    _showClearCacheDialog();
-                  },
-                ),
-              ],
-            ),
-          ),
-
-          const SizedBox(height: 16),
-
-          // 其他设置
-          Card(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Text(
-                    AppLocalizations.of(context).other,
-                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                ),
-                ListTile(
-                  leading: const Icon(Icons.privacy_tip),
-                  title: Text(AppLocalizations.of(context).privacyPolicy),
-                  trailing: const Icon(Icons.chevron_right),
-                  onTap: () {
-                    ScaffoldMessenger.of(
-                      context,
-                    ).showSnackBar(SnackBar(content: Text(AppLocalizations.of(context).privacyPolicy)));
-                  },
-                ),
-                const Divider(height: 1),
-                ListTile(
-                  leading: const Icon(Icons.description),
-                  title: Text(AppLocalizations.of(context).userAgreement),
-                  trailing: const Icon(Icons.chevron_right),
-                  onTap: () {
-                    ScaffoldMessenger.of(
-                      context,
-                    ).showSnackBar(SnackBar(content: Text(AppLocalizations.of(context).userAgreement)));
-                  },
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
+        );
       },
     );
   }
@@ -236,9 +284,11 @@ class _SettingsPageState extends State<SettingsPage> {
           TextButton(
             onPressed: () {
               Navigator.of(context).pop();
-              ScaffoldMessenger.of(
-                context,
-              ).showSnackBar(SnackBar(content: Text(AppLocalizations.of(context).cacheCleared)));
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(AppLocalizations.of(context).cacheCleared),
+                ),
+              );
             },
             child: Text(AppLocalizations.of(context).confirm),
           ),
@@ -249,7 +299,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
   void _showLanguageDialog(ThemeService themeService) {
     String selectedLanguage = themeService.language;
-    
+
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -273,16 +323,16 @@ class _SettingsPageState extends State<SettingsPage> {
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         border: Border.all(
-                          color: selectedLanguage == 'zh' 
-                              ? Theme.of(context).primaryColor 
+                          color: selectedLanguage == 'zh'
+                              ? Theme.of(context).primaryColor
                               : Colors.grey,
                           width: 2.0,
                         ),
-                        color: selectedLanguage == 'zh' 
-                            ? Theme.of(context).primaryColor 
+                        color: selectedLanguage == 'zh'
+                            ? Theme.of(context).primaryColor
                             : Colors.transparent,
                       ),
-                      child: selectedLanguage == 'zh' 
+                      child: selectedLanguage == 'zh'
                           ? Center(
                               child: Container(
                                 width: 10.0,
@@ -317,16 +367,16 @@ class _SettingsPageState extends State<SettingsPage> {
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         border: Border.all(
-                          color: selectedLanguage == 'en' 
-                              ? Theme.of(context).primaryColor 
+                          color: selectedLanguage == 'en'
+                              ? Theme.of(context).primaryColor
                               : Colors.grey,
                           width: 2.0,
                         ),
-                        color: selectedLanguage == 'en' 
-                            ? Theme.of(context).primaryColor 
+                        color: selectedLanguage == 'en'
+                            ? Theme.of(context).primaryColor
                             : Colors.transparent,
                       ),
-                      child: selectedLanguage == 'en' 
+                      child: selectedLanguage == 'en'
                           ? Center(
                               child: Container(
                                 width: 10.0,

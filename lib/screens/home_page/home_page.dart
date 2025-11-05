@@ -17,11 +17,13 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    _loadCurrentUser();
+    // Defer async work until after first frame to avoid delaying initial UI
+    WidgetsBinding.instance.addPostFrameCallback((_) => _loadCurrentUser());
   }
 
   Future<void> _loadCurrentUser() async {
     final username = await AuthService.getCurrentUsername();
+    if (!mounted) return;
     setState(() {
       _currentUsername = username;
     });

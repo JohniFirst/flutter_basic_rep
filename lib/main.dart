@@ -11,9 +11,13 @@ import 'services/theme_service.dart';
 import 'package:provider/provider.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
   // 仅在调试模式和桌面环境下启动本地HTTP服务器
   // 避免在生产环境或移动设备上运行
-  if (kDebugMode && !kIsWeb && (Platform.isWindows || Platform.isMacOS || Platform.isLinux)) {
+  if (kDebugMode &&
+      !kIsWeb &&
+      (Platform.isWindows || Platform.isMacOS || Platform.isLinux)) {
     _startLocalServer();
   }
 
@@ -51,25 +55,30 @@ void _handleServerRequest(HttpRequest request) async {
       try {
         // 获取当前工作目录
         final currentDir = Directory.current;
-        // 列出目录内容 - 限制数量避免处理过多文件
-        final entities = currentDir.listSync(recursive: false).take(100);
-        
-        // 构建文件列表响应
-        String response = '当前目录: ${currentDir.path}\n\n';
-        response += '文件和文件夹列表:\n';
-        
-        for (var entity in entities) {
+
+        // 异步列出目录内容并限制数量，避免在主线程执行大量同步 I/O
+        final buffer = StringBuffer();
+        buffer.writeln('当前目录: ${currentDir.path}\n');
+        buffer.writeln('文件和文件夹列表:');
+
+        int count = 0;
+        await for (final entity in currentDir.list(recursive: false)) {
+          if (count++ >= 100) break;
           if (entity is Directory) {
-            response += '[目录] ${entity.path.split(Platform.pathSeparator).last}\n';
+            buffer.writeln(
+              '[目录] ${entity.path.split(Platform.pathSeparator).last}',
+            );
           } else if (entity is File) {
-            response += '[文件] ${entity.path.split(Platform.pathSeparator).last}\n';
+            buffer.writeln(
+              '[文件] ${entity.path.split(Platform.pathSeparator).last}',
+            );
           }
         }
-        
+
         request.response
           ..statusCode = HttpStatus.ok
           ..headers.contentType = ContentType.text
-          ..write(response);
+          ..write(buffer.toString());
       } catch (e) {
         request.response
           ..statusCode = HttpStatus.internalServerError
@@ -111,17 +120,18 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   void didChangePlatformBrightness() {
     super.didChangePlatformBrightness();
     // 获取当前的亮度模式
-    final brightness = SchedulerBinding.instance.platformDispatcher.platformBrightness;
-    
+    final brightness =
+        SchedulerBinding.instance.platformDispatcher.platformBrightness;
+
     // 获取ThemeService实例并更新主题
     final themeService = context.read<ThemeService>();
     themeService.updateSystemTheme(brightness);
   }
-  
+
   @override
   void didChangeLocales(List<Locale>? locales) {
     super.didChangeLocales(locales);
-    
+
     // 获取ThemeService实例并更新语言
     final themeService = context.read<ThemeService>();
     themeService.updateSystemLanguage();
@@ -142,10 +152,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
           ],
-          supportedLocales: const [
-            Locale('en'),
-            Locale('zh'),
-          ],
+          supportedLocales: const [Locale('en'), Locale('zh')],
           locale: Locale(themeService.language),
           home: const AppWrapper(),
         );
@@ -171,15 +178,14 @@ class _AppWrapperState extends State<AppWrapper> {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Scaffold(
-            body: Center(
-              child: CircularProgressIndicator(),
-            ),
+            body: Center(child: CircularProgressIndicator()),
           );
         }
-        
-        return snapshot.data == true ? const MainNavigationScreen() : const LoginScreen();
+
+        return snapshot.data == true
+            ? const MainNavigationScreen()
+            : const LoginScreen();
       },
     );
   }
 }
-

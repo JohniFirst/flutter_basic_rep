@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
 import '../../services/utility_services.dart';
 import '../../services/http_service.dart';
 import 'package:intl/intl.dart';
@@ -45,29 +44,16 @@ class _ProjectDetailPageState extends State<ProjectDetailPage> {
     });
 
     try {
-      if (kDebugMode) {
-        print('开始获取项目详情，ID: ${widget.projectId}');
-      }
-      
       // 使用统一的HttpService发送请求
       final response = await _httpService.get('/complex-list');
 
-      if (kDebugMode) {
-        print('项目详情请求响应: $response');
-      }
-
       if (response['success']) {
         final data = response['data'];
-        if (kDebugMode) {
-          print('项目详情响应数据类型: ${data.runtimeType}');
-        }
-        
+
         // 确保数据是列表类型
-        final List<dynamic> projectsList = data is List ? data : (data is Map && data.containsKey('data') ? data['data'] : []);
-        
-        if (kDebugMode) {
-          print('项目列表长度: ${projectsList.length}');
-        }
+        final List<dynamic> projectsList = data is List
+            ? data
+            : (data is Map && data.containsKey('data') ? data['data'] : []);
 
         // 过滤出匹配ID的项目
         final projectData = projectsList.firstWhere(
@@ -76,31 +62,21 @@ class _ProjectDetailPageState extends State<ProjectDetailPage> {
         );
 
         if (projectData != null) {
-          if (kDebugMode) {
-            print('找到项目: ${projectData['title']}');
-          }
           setState(() {
             _project = ProjectItem.fromJson(projectData);
             _isLoading = false;
           });
         } else {
           final errorMsg = '项目不存在，ID: ${widget.projectId}';
-          if (kDebugMode) {
-            print(errorMsg);
-          }
+
           throw Exception(errorMsg);
         }
       } else {
         final errorMessage = response['message'] ?? '请求失败';
-        if (kDebugMode) {
-          print('项目详情请求失败: $errorMessage');
-        }
+
         throw Exception(errorMessage);
       }
     } catch (error) {
-      if (kDebugMode) {
-        print('项目详情获取异常: $error');
-      }
       setState(() {
         _isLoading = false;
         _error = error.toString();

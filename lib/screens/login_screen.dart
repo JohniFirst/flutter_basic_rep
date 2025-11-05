@@ -20,7 +20,10 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     super.initState();
-    _loadRememberedCredentials();
+    // Defer async work to after first frame to avoid blocking UI
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) => _loadRememberedCredentials(),
+    );
   }
 
   // 加载记住的用户凭据
@@ -29,12 +32,14 @@ class _LoginScreenState extends State<LoginScreen> {
     if (rememberUser) {
       final username = await AuthService.getRememberedUsername();
       final password = await AuthService.getRememberedPassword();
-      
+      if (!mounted) return;
       setState(() {
         _usernameController.text = username ?? '';
         _passwordController.text = password ?? '';
         _rememberUser = true;
       });
+    } else {
+      // no remembered credentials
     }
   }
 
@@ -59,7 +64,9 @@ class _LoginScreenState extends State<LoginScreen> {
         // 登录成功，跳转到主页面
         if (mounted) {
           Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => const MainNavigationScreen()),
+            MaterialPageRoute(
+              builder: (context) => const MainNavigationScreen(),
+            ),
           );
         }
       } else {
@@ -90,11 +97,7 @@ class _LoginScreenState extends State<LoginScreen> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 // Logo 或标题
-                const Icon(
-                  Icons.account_circle,
-                  size: 80,
-                  color: Colors.blue,
-                ),
+                const Icon(Icons.account_circle, size: 80, color: Colors.blue),
                 const SizedBox(height: 32),
                 Text(
                   AppLocalizations.of(context).welcomeLogin,
@@ -179,7 +182,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           width: 20,
                           child: CircularProgressIndicator(
                             strokeWidth: 2,
-                            valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              Colors.white,
+                            ),
                           ),
                         )
                       : Text(
@@ -192,10 +197,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 // 提示信息
                 Text(
                   AppLocalizations.of(context).loginHint,
-                  style: const TextStyle(
-                    color: Colors.grey,
-                    fontSize: 12,
-                  ),
+                  style: const TextStyle(color: Colors.grey, fontSize: 12),
                   textAlign: TextAlign.center,
                 ),
               ],

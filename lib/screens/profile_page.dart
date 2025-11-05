@@ -17,12 +17,14 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   void initState() {
     super.initState();
-    _loadUserInfo();
+    // Defer async work to after first frame to avoid blocking UI
+    WidgetsBinding.instance.addPostFrameCallback((_) => _loadUserInfo());
   }
 
   Future<void> _loadUserInfo() async {
     final username = await AuthService.getCurrentUsername();
     final rememberUser = await AuthService.isRememberUser();
+    if (!mounted) return;
     setState(() {
       _currentUsername = username;
       _isRememberUser = rememberUser;
@@ -81,6 +83,7 @@ class _ProfilePageState extends State<ProfilePage> {
           children: [
             // 用户头像和信息
             Card(
+              elevation: 0,
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Row(
@@ -128,6 +131,7 @@ class _ProfilePageState extends State<ProfilePage> {
             const SizedBox(height: 10),
 
             Card(
+              elevation: 0,
               child: Column(
                 children: [
                   ListTile(
@@ -200,6 +204,7 @@ class _ProfilePageState extends State<ProfilePage> {
             // 记住用户状态
             if (_isRememberUser)
               Card(
+                elevation: 0,
                 color: Colors.green[50],
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),

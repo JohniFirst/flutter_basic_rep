@@ -28,10 +28,7 @@ class _CameraExamplePageState extends State<CameraExamplePage> {
       // 处理相机相关错误
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('相机调用失败: $e'),
-          backgroundColor: Colors.red,
-        ),
+        SnackBar(content: Text('相机调用失败: $e'), backgroundColor: Colors.red),
       );
     }
   }
@@ -60,34 +57,41 @@ class _CameraExamplePageState extends State<CameraExamplePage> {
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 20),
-              
-              // 相机预览或照片展示区域
-              Container(
-                width: double.infinity,
-                height: 400,
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey),
-                  borderRadius: BorderRadius.circular(8),
-                  color: Colors.grey.shade100,
-                ),
-                child: _image != null
-                    ? Image.file(
-                        _image!,
-                        fit: BoxFit.cover,
-                      )
-                    : const Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(Icons.camera, size: 80, color: Colors.grey),
-                            SizedBox(height: 10),
-                            Text('点击下方按钮拍照'),
-                          ],
+
+              // 相机预览或照片展示区域 - 使用 RepaintBoundary 限制重绘范围，并在解码时限制像素以降低主线程压力
+              RepaintBoundary(
+                child: Container(
+                  width: double.infinity,
+                  height: 400,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey),
+                    borderRadius: BorderRadius.circular(8),
+                    color: Colors.grey.shade100,
+                  ),
+                  child: _image != null
+                      ? Image.file(
+                          _image!,
+                          fit: BoxFit.cover,
+                          width: double.infinity,
+                          height: 400,
+                          // 限制解码尺寸，避免在 UI 线程解码过大图片导致卡顿
+                          cacheWidth: 1080,
+                          cacheHeight: 400,
+                        )
+                      : const Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(Icons.camera, size: 80, color: Colors.grey),
+                              SizedBox(height: 10),
+                              Text('点击下方按钮拍照'),
+                            ],
+                          ),
                         ),
-                      ),
+                ),
               ),
               const SizedBox(height: 30),
-              
+
               // 操作按钮区域
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -104,10 +108,9 @@ class _CameraExamplePageState extends State<CameraExamplePage> {
                       textStyle: const TextStyle(fontSize: 16),
                     ),
                   ),
-                  
-                  if (_image != null)
-                    const SizedBox(width: 20),
-                  
+
+                  if (_image != null) const SizedBox(width: 20),
+
                   if (_image != null)
                     ElevatedButton.icon(
                       onPressed: _resetImage,
@@ -125,7 +128,7 @@ class _CameraExamplePageState extends State<CameraExamplePage> {
                 ],
               ),
               const SizedBox(height: 20),
-              
+
               // 提示信息
               const Text(
                 '点击拍照按钮将调用系统相机功能\n请确保已授予相机权限',

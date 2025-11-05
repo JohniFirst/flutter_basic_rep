@@ -13,7 +13,7 @@ class SharedElementAnimationPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Card(
-              elevation: 4,
+              elevation: 0,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
@@ -59,7 +59,7 @@ class SharedElementAnimationPage extends StatelessWidget {
 
   Widget _buildImageAnimationCard(BuildContext context) {
     return Card(
-      elevation: 2,
+      elevation: 0,
       child: InkWell(
         onTap: () => _navigateToDetailPage(context, 'image'),
         borderRadius: BorderRadius.circular(8),
@@ -105,7 +105,7 @@ class SharedElementAnimationPage extends StatelessWidget {
 
   Widget _buildTextAnimationCard(BuildContext context) {
     return Card(
-      elevation: 2,
+      elevation: 0,
       child: InkWell(
         onTap: () => _navigateToDetailPage(context, 'text'),
         borderRadius: BorderRadius.circular(8),
@@ -153,7 +153,7 @@ class SharedElementAnimationPage extends StatelessWidget {
 
   Widget _buildIconAnimationCard(BuildContext context) {
     return Card(
-      elevation: 2,
+      elevation: 0,
       child: InkWell(
         onTap: () => _navigateToDetailPage(context, 'icon'),
         borderRadius: BorderRadius.circular(8),
@@ -201,7 +201,7 @@ class SharedElementAnimationPage extends StatelessWidget {
 
   Widget _buildCardAnimationCard(BuildContext context) {
     return Card(
-      elevation: 2,
+      elevation: 0,
       child: InkWell(
         onTap: () => _navigateToDetailPage(context, 'card'),
         borderRadius: BorderRadius.circular(8),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
 import 'dart:async';
 import 'package:intl/intl.dart';
 import 'project_detail_page.dart';
@@ -288,10 +287,6 @@ class _ComplexListPageState extends State<ComplexListPage> {
 
   Future<void> _fetchData(int page) async {
     try {
-      if (kDebugMode) {
-        print('开始获取数据，页码: $page, 每页数量: $_pageSize');
-      }
-      
       // 使用统一的HttpService发送请求
       final response = await _httpService.get(
         '/complex-list',
@@ -301,40 +296,26 @@ class _ComplexListPageState extends State<ComplexListPage> {
         },
       );
 
-      if (kDebugMode) {
-        print('请求响应: $response');
-      }
-
       if (response['success']) {
         final data = response['data'];
-        if (kDebugMode) {
-          print('响应数据类型: ${data.runtimeType}');
-          print('响应数据: $data');
-        }
-        
+
         // 确保数据是列表类型
-        final List<dynamic> projectsList = data is List ? data : (data is Map && data.containsKey('data') ? data['data'] : []);
-        
-        if (kDebugMode) {
-          print('项目列表长度: ${projectsList.length}');
-        }
+        final List<dynamic> projectsList = data is List
+            ? data
+            : (data is Map && data.containsKey('data') ? data['data'] : []);
 
         setState(() {
           if (page == 0) {
             _projectItems.clear();
             _currentPage = 0;
           }
-          
+
           if (projectsList.isNotEmpty) {
             _projectItems.addAll(
               projectsList.map((item) => ProjectItem.fromJson(item)).toList(),
             );
-            
-            if (kDebugMode) {
-              print('添加后项目总数: ${_projectItems.length}');
-            }
           }
-          
+
           _currentPage = page;
 
           // 检查是否还有更多数据
@@ -343,33 +324,26 @@ class _ComplexListPageState extends State<ComplexListPage> {
           }
 
           _isLoading = false;
-    
         });
       } else {
         final errorMessage = response['message'] ?? '请求失败';
-        if (kDebugMode) {
-          print('请求失败: $errorMessage');
-        }
+
         throw Exception(errorMessage);
       }
     } catch (error) {
-      if (kDebugMode) {
-        print('异常: $error');
-      }
       setState(() {
         _isLoading = false;
-  
       });
       if (mounted) {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text('加载数据失败: $error')));
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('加载数据失败: $error')));
       }
     }
   }
 
   Future<void> _onRefresh() async {
     setState(() {
-
       _hasMore = true;
     });
     await _fetchData(0);
