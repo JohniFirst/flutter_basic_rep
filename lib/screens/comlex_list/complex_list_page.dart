@@ -275,14 +275,143 @@ class _ComplexListPageState extends State<ComplexListPage> {
     super.dispose();
   }
 
+  // 创建默认模拟数据的方法
+  List<ProjectItem> _getDefaultProjects() {
+    return [
+      ProjectItem(
+        id: 1,
+        title: '智能办公系统开发',
+        description: '基于Flutter的跨平台智能办公系统，包含日程管理、文档协作等功能',
+        createdAt: DateTime(2023, 9, 15),
+        updatedAt: DateTime(2023, 10, 5),
+        status: 'active',
+        priority: 'high',
+        author: Author(
+          id: 1,
+          name: '张明',
+          avatar: '',
+          role: '产品经理',
+          contact: Contact(email: 'zhangming@example.com', phone: '13800138001'),
+        ),
+        metadata: Metadata(
+          tags: ['Flutter', '办公系统', '产品开发'],
+          viewCount: 156,
+          commentCount: 23,
+          shareCount: 8,
+        ),
+        content: Content(
+          sections: [
+            Section(id: 's1', type: 'text', title: '项目概述', content: '项目基本信息'),
+          ],
+          attachments: [
+            Attachment(id: 'a1', name: '需求文档.pdf', type: 'pdf', size: '2.5MB', url: ''),
+          ],
+        ),
+        statistics: Statistics(
+          progress: 65,
+          completionRate: '65%',
+          performance: Performance(speed: '良好', efficiency: '高', resourceUsage: '中等'),
+        ),
+        relatedItems: [
+          RelatedItem(id: 2, title: 'UI设计稿', relationType: '相关文档'),
+        ],
+      ),
+      ProjectItem(
+        id: 2,
+        title: '电商移动端优化',
+        description: '优化现有电商APP的性能和用户体验，提升转化率',
+        createdAt: DateTime(2023, 8, 20),
+        updatedAt: DateTime(2023, 10, 1),
+        status: 'pending',
+        priority: 'medium',
+        author: Author(
+          id: 2,
+          name: '李华',
+          avatar: '',
+          role: '技术负责人',
+          contact: Contact(email: 'lihua@example.com', phone: '13900139002'),
+        ),
+        metadata: Metadata(
+          tags: ['电商', '性能优化', '用户体验'],
+          viewCount: 203,
+          commentCount: 45,
+          shareCount: 12,
+        ),
+        content: Content(
+          sections: [
+            Section(id: 's2', type: 'text', title: '优化方案', content: '性能优化详细计划'),
+          ],
+          attachments: [
+            Attachment(id: 'a2', name: '性能分析报告.xlsx', type: 'excel', size: '1.8MB', url: ''),
+          ],
+        ),
+        statistics: Statistics(
+          progress: 40,
+          completionRate: '40%',
+          performance: Performance(speed: '待提升', efficiency: '中等', resourceUsage: '较高'),
+        ),
+        relatedItems: [
+          RelatedItem(id: 3, title: '竞品分析', relationType: '参考资料'),
+        ],
+      ),
+      ProjectItem(
+        id: 3,
+        title: '企业数据分析平台',
+        description: '基于大数据技术的企业数据分析和可视化平台',
+        createdAt: DateTime(2023, 7, 10),
+        updatedAt: DateTime(2023, 9, 28),
+        status: 'completed',
+        priority: 'high',
+        author: Author(
+          id: 3,
+          name: '王静',
+          avatar: '',
+          role: '数据分析师',
+          contact: Contact(email: 'wangjing@example.com', phone: '13700137003'),
+        ),
+        metadata: Metadata(
+          tags: ['数据分析', '可视化', '大数据'],
+          viewCount: 289,
+          commentCount: 67,
+          shareCount: 15,
+        ),
+        content: Content(
+          sections: [
+            Section(id: 's3', type: 'chart', title: '数据指标', content: '关键业务指标'),
+          ],
+          attachments: [
+            Attachment(id: 'a3', name: '数据模型设计.pptx', type: 'ppt', size: '3.2MB', url: ''),
+          ],
+        ),
+        statistics: Statistics(
+          progress: 100,
+          completionRate: '100%',
+          performance: Performance(speed: '优秀', efficiency: '优秀', resourceUsage: '低'),
+        ),
+        relatedItems: [
+          RelatedItem(id: 4, title: '用户反馈汇总', relationType: '项目总结'),
+        ],
+      ),
+    ];
+  }
+
   Future<void> _loadInitialData() async {
+    // 首先加载默认数据，让用户立即看到内容
     setState(() {
-      _isLoading = true;
+      _projectItems.addAll(_getDefaultProjects());
+      _isLoading = true; // 保持加载状态，API完成后会更新
     });
-    await _fetchData(0);
-    setState(() {
-      _isLoading = false;
-    });
+    
+    try {
+      // 同时请求API数据
+      await _fetchData(0);
+      // API请求成功后，会在_fetchData中更新数据
+    } catch (e) {
+      // API请求失败时，保留默认数据
+      setState(() {
+        _isLoading = false;
+      });
+    }
   }
 
   Future<void> _fetchData(int page) async {
@@ -306,7 +435,7 @@ class _ComplexListPageState extends State<ComplexListPage> {
 
         setState(() {
           if (page == 0) {
-            _projectItems.clear();
+            _projectItems.clear(); // 清除默认数据，替换为真实数据
             _currentPage = 0;
           }
 
@@ -327,17 +456,19 @@ class _ComplexListPageState extends State<ComplexListPage> {
         });
       } else {
         final errorMessage = response['message'] ?? '请求失败';
-
         throw Exception(errorMessage);
       }
     } catch (error) {
+      // API请求失败时，保留已显示的默认数据
       setState(() {
         _isLoading = false;
+        _hasMore = false; // 默认数据不需要分页
       });
+      
       if (mounted) {
         ScaffoldMessenger.of(
           context,
-        ).showSnackBar(SnackBar(content: Text('加载数据失败: $error')));
+        ).showSnackBar(SnackBar(content: Text('加载数据失败，显示默认数据: $error')));
       }
     }
   }
@@ -647,9 +778,7 @@ class _ComplexListPageState extends State<ComplexListPage> {
         toolbarHeight: 50,
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
-      body: _isLoading && _projectItems.isEmpty
-          ? const Center(child: CircularProgressIndicator())
-          : RefreshIndicator(
+      body: RefreshIndicator(
               onRefresh: _onRefresh,
               child: ListView.builder(
                 controller: _scrollController,
