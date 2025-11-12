@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class RegistryCheckPage extends StatefulWidget {
-  const RegistryCheckPage({Key? key}) : super(key: key);
+  const RegistryCheckPage({super.key});
 
   @override
   State<RegistryCheckPage> createState() => _RegistryCheckPageState();
@@ -63,8 +63,9 @@ class _RegistryCheckPageState extends State<RegistryCheckPage> {
           );
           for (final m in regKeyRegexp.allMatches(out)) {
             final foundKey = m.group(1)?.trim();
-            if (foundKey != null && foundKey.isNotEmpty)
+            if (foundKey != null && foundKey.isNotEmpty) {
               matchingKeys.add(foundKey);
+            }
           }
         }
       }
