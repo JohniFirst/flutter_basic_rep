@@ -4,3 +4,6 @@
 ## 待添加的功能
 1、国际化
 2、主题切换功能
+
+## 打包时不再重新下载依赖
+flutter build apk --release --split-per-abi --no-pub
