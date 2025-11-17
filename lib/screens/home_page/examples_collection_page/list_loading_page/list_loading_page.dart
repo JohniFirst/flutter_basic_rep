@@ -215,17 +215,17 @@ class ListItemWidget extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: const [
-                      Text('子项1', style: TextStyle(fontSize: 14)),
+                      Text('子项2', style: TextStyle(fontSize: 14)),
                       SizedBox(height: 8),
-                      Text('子项描述', style: TextStyle(fontSize: 12)),
+                      Text('特殊描述', style: TextStyle(fontSize: 12)),
                     ],
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: const [
-                      Text('子项1', style: TextStyle(fontSize: 14)),
+                      Text('子项3', style: TextStyle(fontSize: 14)),
                       SizedBox(height: 8),
-                      Text('子项描述', style: TextStyle(fontSize: 12)),
+                      Text('额外描述', style: TextStyle(fontSize: 12)),
                     ],
                   ),
                 ],
